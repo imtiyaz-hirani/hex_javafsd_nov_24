@@ -1,0 +1,151 @@
+-- MySQL Workbench Forward Engineering
+ 
+-- -----------------------------------------------------
+-- Schema fsd_oct_sms_db
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema fsd_oct_sms_db
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `fsd_oct_sms_db` DEFAULT CHARACTER SET utf8 ;
+USE `fsd_oct_sms_db` ;
+
+-- -----------------------------------------------------
+-- Table `fsd_oct_sms_db`.`user`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fsd_oct_sms_db`.`user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `role` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC)  )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fsd_oct_sms_db`.`address`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fsd_oct_sms_db`.`address` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `state` VARCHAR(45) NOT NULL,
+  `city` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fsd_oct_sms_db`.`student`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fsd_oct_sms_db`.`student` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `contact` VARCHAR(255) NOT NULL,
+  `user_id` INT NOT NULL,
+  `address_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `contact_UNIQUE` (`contact` ASC)  ,
+  INDEX `fk_student_user_idx` (`user_id` ASC)  ,
+  INDEX `fk_student_address1_idx` (`address_id` ASC)  ,
+  CONSTRAINT `fk_student_user`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `fsd_oct_sms_db`.`user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_student_address1`
+    FOREIGN KEY (`address_id`)
+    REFERENCES `fsd_oct_sms_db`.`address` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fsd_oct_sms_db`.`instructor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fsd_oct_sms_db`.`instructor` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `salary` VARCHAR(45) NOT NULL,
+  `contact` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fsd_oct_sms_db`.`department`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fsd_oct_sms_db`.`department` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fsd_oct_sms_db`.`course`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fsd_oct_sms_db`.`course` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `credits` VARCHAR(45) NOT NULL,
+  `department_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_course_department1_idx` (`department_id` ASC)  ,
+  CONSTRAINT `fk_course_department1`
+    FOREIGN KEY (`department_id`)
+    REFERENCES `fsd_oct_sms_db`.`department` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fsd_oct_sms_db`.`course_instructor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fsd_oct_sms_db`.`course_instructor` (
+  `course_id` INT NOT NULL,
+  `instructor_id` INT NOT NULL,
+  `batch` VARCHAR(45) NULL,
+  `month` VARCHAR(45) NULL,
+  `year` VARCHAR(45) NULL,
+  PRIMARY KEY (`course_id`, `instructor_id`),
+  INDEX `fk_course_has_instructor_instructor1_idx` (`instructor_id` ASC)  ,
+  INDEX `fk_course_has_instructor_course1_idx` (`course_id` ASC)  ,
+  CONSTRAINT `fk_course_has_instructor_course1`
+    FOREIGN KEY (`course_id`)
+    REFERENCES `fsd_oct_sms_db`.`course` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_course_has_instructor_instructor1`
+    FOREIGN KEY (`instructor_id`)
+    REFERENCES `fsd_oct_sms_db`.`instructor` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `fsd_oct_sms_db`.`student_course`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `fsd_oct_sms_db`.`student_course` (
+  `student_id` INT NOT NULL,
+  `course_id` INT NOT NULL,
+  `date_of_enroll` DATE NOT NULL,
+  PRIMARY KEY (`student_id`, `course_id`, `date_of_enroll`),
+  INDEX `fk_student_has_course_course1_idx` (`course_id` ASC)  ,
+  INDEX `fk_student_has_course_student1_idx` (`student_id` ASC)  ,
+  CONSTRAINT `fk_student_has_course_student1`
+    FOREIGN KEY (`student_id`)
+    REFERENCES `fsd_oct_sms_db`.`student` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_student_has_course_course1`
+    FOREIGN KEY (`course_id`)
+    REFERENCES `fsd_oct_sms_db`.`course` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+ 

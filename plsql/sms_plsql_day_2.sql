@@ -199,3 +199,103 @@ end
 $$
 CALL fetch_student_by_instructor('Jane Smith');
 
+-- CURSORS
+
+-- display all students using cursor. 
+DELIMITER $$
+create procedure fetch_students_cursor()
+begin
+	declare sid int; 
+    declare sname varchar(255);
+    declare done int default 0;
+    
+	declare student_cur cursor  FOR
+				select id,name from student ; -- query into cursor 
+	
+	-- declare a handler and udate/set the prop done(0/1). 
+    -- when the cursor reaches the last row while iterating update done to 1 until then it will be 0 
+	declare continue handler FOR NOT FOUND SET done=1;
+    -- open cursor
+    OPEN student_cur;
+    my_loop:
+    LOOP 
+		FETCH student_cur into sid,sname;
+        if done then   -- if done is 1 u leave 
+			leave my_loop;
+		end if; 
+        select sid,sname;   -- stay in loop and display 
+    END LOOP;
+    -- close cursor 
+    close student_cur; 
+end
+$$
+CALL fetch_students_cursor();
+
+
+/* update job_title of all instructor depending upon following criteria: 
+	salary > 100000 : 'Associate Prof'
+    salary >= 75000 : 'Asst Prof'
+    salary < 75000 : 'Lecturer'
+    
+    Use cursor. 
+*/
+delimiter $$
+create procedure instructor_job_title_update_cur()
+begin
+	declare pid int; 
+    declare done int default 0; -- initial value is 0 
+    declare psal double;
+    -- declare cursor 
+    declare inst_cur cursor  FOR 
+		select id  from instructor ; -- all ids of instructor into cursor 
+	
+    -- cursor handler 
+    declare continue handler FOR NOT FOUND SET done=1; -- when id is not found then done will be 1
+    
+    -- OPEN cursor 
+    OPEN inst_cur;
+    my_loop: 
+		LOOP 
+			FETCH inst_cur into pid;
+        if done then   -- if done is 1 u leave 
+			leave my_loop;
+		end if; 
+        -- update job_title her for this pid befoe the loop goes up again to second row 
+         select salary into psal  -- saves salary into psal of current row 
+		from instructor 
+		where id = pid; 
+        -- for this selected id update job_profile 
+        if psal >= 100000 then
+			update instructor SET job_title ='Associate Prof' where id=pid;
+		end if; 
+		if psal >= 75000 AND psal < 100000 then
+			update instructor SET job_title ='Asst Prof' where id=pid;
+		end if; 
+		if psal < 75000 then
+			update instructor SET job_title ='Lecturer' where id=pid;
+		end if; 
+        END LOOP; 
+    -- CLOSE cursor 
+    CLOSE inst_cur; 
+end; 
+$$
+-- mysql> update instructor SET job_title='';-- do this in DB to reset job_title 
+CALL instructor_job_title_update_cur();
+
+/*
+RESULT OF PROC: 
++----+------------+--------+----------+-----------+
+| id | name       | salary | contact  | job_title |
++----+------------+--------+----------+-----------+
+|  1 | John Doe   | 70000  | 555-1234 | Lecturer  |
+|  2 | Jane Smith | 80000  | 555-5678 | Asst Prof |
++----+------------+--------+----------+-----------+
+*/
+
+
+
+
+
+
+
+

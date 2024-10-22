@@ -156,6 +156,46 @@ $$
 DROP PROCEDURE update_instructor_profile;
 call update_instructor_profile();
 
+/*
+CAP to fetch details of all students along with their username and city that are associated with given department 
+Hint: use manual mapping technique 
+*/
+DELIMITER $$
+create procedure fetch_students_by_department(IN pdept text)
+BEGIN
+select distinct s.*,u.username,a.city
+from student s, student_course sc, course c , department d, user u, address a
+where s.id = sc.student_id 
+AND sc.course_id = c.id 
+AND c.department_id = d.id
+AND u.id = s.user_id
+AND s.address_id = a.id
+AND d.name=pdept;
+END;
+$$
+CALL fetch_students_by_department('Computer Science');
 
+-- fetch details of all students along with their username and city that are associated with given department
+select distinct s.*,u.username,a.city
+from student s 
+JOIN student_course sc ON s.id = sc.student_id
+JOIN course c ON sc.course_id = c.id 
+JOIN department d ON d.id = c.department_id 
+JOIN user u ON u.id = s.user_id
+JOIN address a ON a.id = s.address_id
+where  d.name='Computer Science';
 
+-- fetch all students who are taught by given instructor. CAP to take instructor name as IN param. USE: JOIN 
+delimiter $$
+create procedure fetch_student_by_instructor(IN pname text)
+begin
+select distinct s.* 
+from student s join student_course sc ON s.id = sc.student_id
+join course c ON sc.course_id = c.id 
+join course_instructor ci ON c.id = ci.course_id 
+join instructor i on ci.instructor_id = i.id 
+where i.name=pname;
+end
+$$
+CALL fetch_student_by_instructor('Jane Smith');
 

@@ -42,3 +42,21 @@ INSERT INTO student_course (student_id, course_id, date_of_enroll) VALUES (3, 3,
 
 update student SET address_id=1 where id=2;
 delete from address where id=2;
+
+-- Display student_name, course_name, date_of_enrollment of course enrolled by student living in city 'Los Angeles'
+
+select  s.name, c.name, sc.date_of_enroll 
+from address a, student s, student_course sc, course c
+where a.id = s.address_id AND sc.student_id = s.id AND c.id = sc.course_id AND a.city='Los Angeles';
+
+
+
+
+
+
+
+
+
+
+
+

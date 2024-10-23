@@ -1,10 +1,15 @@
 package com.sms.controller;
-
 import java.util.Scanner;
+
+import com.sms.exception.InvalidInputException;
+import com.sms.model.Instructor;
+import com.sms.service.InstructorService;
 
 public class InstructorController {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		InstructorService instructorService = new InstructorService(sc);
+		
 		while(true) {
 			System.out.println("=========Instructor Module===========");
 			System.out.println("1. Add Instructor");
@@ -15,6 +20,7 @@ public class InstructorController {
 			System.out.println("0. To Exit");
 			System.out.println("======================================");
 			int input = sc.nextInt();
+			
 			if(input ==0) {
 				System.out.println("Exiting... Thank You!!");
 				break;
@@ -22,6 +28,15 @@ public class InstructorController {
 			
 			switch(input) {
 				case 1: 
+					Instructor instructor =  instructorService.takeInput();
+				try {
+					instructorService.validate(instructor);
+				} catch (InvalidInputException e) {
+					 System.out.println(e.getMessage());
+					 break;
+				}
+				instructorService.insert(instructor);
+				System.out.println("Instructor record added in DB");
 					break;
 				case 2: 
 					break;

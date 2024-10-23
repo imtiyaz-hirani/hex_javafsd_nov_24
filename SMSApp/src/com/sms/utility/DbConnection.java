@@ -8,7 +8,7 @@ public class DbConnection {
 	
 	static Connection con; 
 	
-	public static void dbConnect() {
+	public static Connection dbConnect() {
 		/*
 		 * Load the driver 
 		*/
@@ -27,6 +27,7 @@ public class DbConnection {
 			} catch (SQLException e) {
 				 e.printStackTrace();
 			}
+			return con; 
 	}
 	
 	public static void dbClose() {

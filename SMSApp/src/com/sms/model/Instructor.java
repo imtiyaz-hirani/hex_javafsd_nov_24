@@ -3,7 +3,7 @@ package com.sms.model;
 public class Instructor {
 	private int id;
 	private String name;
-	private String salary;
+	private double salary;
 	private String contact;
 	private String jobTitle;
 
@@ -23,11 +23,13 @@ public class Instructor {
 		this.name = name;
 	}
 
-	public String getSalary() {
+	 
+
+	public double getSalary() {
 		return salary;
 	}
 
-	public void setSalary(String salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
 

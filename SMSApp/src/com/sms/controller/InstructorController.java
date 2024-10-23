@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.sms.exception.InvalidInputException;
+import com.sms.exception.ResourceNotFoundException;
 import com.sms.model.Instructor;
 import com.sms.service.InstructorService;
 
@@ -41,13 +42,27 @@ public class InstructorController {
 					break;
 				case 2: 
 					List<Instructor> list =  instructorService.getAllInstructors();
+					System.out.println("**********All Instructors************");
 					list.stream().forEach(i->{
 						System.out.println(i.getId() + "--" + i.getName() + "--" + i.getJobTitle());
 					});
+					System.out.println("*************************************");
 					break;
 				case 3: 
 					break;
 				case 4:
+					System.out.println("Enter the ID to delete");
+					int id = sc.nextInt();
+					//validate id 
+				try {
+					instructorService.validateId(id);
+				} catch (ResourceNotFoundException e) {
+					 System.out.println(e.getMessage());
+					 break; 
+				}
+				 //delete instructor 
+				instructorService.deleteById(id);
+				System.out.println("Instructor record deleted...");
 					break;
 				default:
 					System.out.println("Invald Input, try again");

@@ -14,7 +14,7 @@ public class DbConnection {
 		*/
 			try {
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				System.out.println("driver loaded");
+				 
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -23,7 +23,7 @@ public class DbConnection {
 		*/
 			try {
 				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/fsd_oct_sms_db", "root", "techskillsit");
-				System.out.println("Connection est...");
+				 
 			} catch (SQLException e) {
 				 e.printStackTrace();
 			}

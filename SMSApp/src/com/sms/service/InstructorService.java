@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.sms.exception.InvalidInputException;
+import com.sms.exception.ResourceNotFoundException;
 import com.sms.model.Instructor;
 import com.sms.repository.InstructorRepository;
 
@@ -17,7 +18,8 @@ public class InstructorService {
 
 	public Instructor takeInput() {
 		 System.out.println("Enter name");
-		 String name = sc.next();
+		 sc.nextLine();
+		 String name = sc.nextLine();
 		 System.out.println("Enter contact");
 		 String contact = sc.next();
 		 System.out.println("Enter salary");
@@ -56,6 +58,17 @@ public class InstructorService {
 
 	public List<Instructor> getAllInstructors() {
 		return instructorRepository.getAllInstructors();
+	}
+
+	public void validateId(int id) throws ResourceNotFoundException {
+		if(!instructorRepository.getInstructorById(id))
+			throw new ResourceNotFoundException("Invalid ID Given");
+		
+	}
+
+	public void deleteById(int id) {
+		instructorRepository.deleteById(id);
+		
 	}
 
 	 

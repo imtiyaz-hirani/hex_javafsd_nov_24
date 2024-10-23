@@ -71,6 +71,16 @@ public class InstructorService {
 		
 	}
 
+	public Instructor validateIdAndFetchRecord(int id) throws ResourceNotFoundException {
+		 
+		return instructorRepository.validateIdAndFetchRecord(id);
+	}
+
+	public void update(Instructor obj) {
+		instructorRepository.update(obj);
+		
+	}
+
 	 
 	
 	

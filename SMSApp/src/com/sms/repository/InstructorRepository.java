@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.relation.InvalidRelationIdException;
+
+import com.sms.exception.ResourceNotFoundException;
 import com.sms.model.Instructor;
 import com.sms.utility.DbConnection;
 
@@ -100,4 +103,49 @@ public class InstructorRepository {
 		DbConnection.dbClose();
 	}
 
-}
+	public Instructor validateIdAndFetchRecord(int id) throws ResourceNotFoundException {
+		Connection con = DbConnection.dbConnect();
+		String sql="select * from instructor where id=?";
+		Instructor instructor = new Instructor();
+		try {
+			PreparedStatement pstmt =  con.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rst =  pstmt.executeQuery();
+			if(rst.next() == true) {
+				instructor.setId(rst.getInt("id"));
+				instructor.setName(rst.getString("name"));
+				instructor.setSalary(rst.getDouble("salary"));
+				instructor.setContact(rst.getString("contact"));
+				instructor.setJobTitle(rst.getString("job_title"));
+			}
+			else  
+				throw new ResourceNotFoundException("Id is invalid");
+		}
+		catch(SQLException e) {}
+			
+		DbConnection.dbClose();
+		return instructor;
+	}
+
+	public void update(Instructor instructor) {
+		Connection con = DbConnection.dbConnect();
+		String sql="update instructor SET name=?,contact=?,salary=? where id=?"; 
+		try {
+			PreparedStatement pstmt =  con.prepareStatement(sql);
+			//assign values of ?
+			pstmt.setString(1, instructor.getName());
+			pstmt.setString(2, instructor.getContact());
+			pstmt.setDouble(3, instructor.getSalary());
+			pstmt.setInt(4, instructor.getId());
+			//run the pstmt
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			 e.printStackTrace();
+		}
+		
+		DbConnection.dbClose();
+
+	}
+	}
+
+ 

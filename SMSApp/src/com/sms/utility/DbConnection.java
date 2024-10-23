@@ -5,10 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
  
 public class DbConnection {
-//db connection code 
 	
 	static Connection con; 
-	
 	
 	public static void dbConnect() {
 		/*
@@ -39,11 +37,11 @@ public class DbConnection {
 			e.printStackTrace();
 		}
 	}
-
-	public static void main(String[] args) {
-		DbConnection.dbConnect();
-		DbConnection.dbClose();
-		
-	}
+//
+//	public static void main(String[] args) {
+//		DbConnection.dbConnect();
+//		DbConnection.dbClose();
+//		
+//	}
 }
 //ctrl + shft + o

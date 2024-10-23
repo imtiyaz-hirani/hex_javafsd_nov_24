@@ -2,7 +2,10 @@ package com.sms.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.sms.model.Instructor;
 import com.sms.utility.DbConnection;
@@ -34,6 +37,32 @@ public class InstructorRepository {
 			e.printStackTrace();
 		}
 		DbConnection.dbClose();
+	}
+
+	public List<Instructor> getAllInstructors() {
+		Connection con = DbConnection.dbConnect();
+		String sql="select * from instructor";
+		 
+		try {
+			PreparedStatement pstmt =  con.prepareStatement(sql);
+			ResultSet rst =  pstmt.executeQuery(sql);
+			
+			List<Instructor> list = new ArrayList<>();
+			while(rst.next()) {
+				Instructor instructor = new Instructor();
+				instructor.setId(rst.getInt("id"));
+				instructor.setName(rst.getString("name"));
+				instructor.setSalary(rst.getDouble("salary"));
+				instructor.setContact(rst.getString("contact"));
+				instructor.setJobTitle(rst.getString("job_title"));
+				list.add(instructor);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
+		DbConnection.dbClose();
+		return null;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.sms.service;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.sms.exception.InvalidInputException;
@@ -51,6 +52,10 @@ public class InstructorService {
 		
 		instructorRepository.insert(instructor);
 		
+	}
+
+	public List<Instructor> getAllInstructors() {
+		return instructorRepository.getAllInstructors();
 	}
 
 	 

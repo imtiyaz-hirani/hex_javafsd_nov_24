@@ -1,4 +1,5 @@
 package com.sms.controller;
+import java.util.List;
 import java.util.Scanner;
 
 import com.sms.exception.InvalidInputException;
@@ -39,6 +40,10 @@ public class InstructorController {
 				System.out.println("Instructor record added in DB");
 					break;
 				case 2: 
+					List<Instructor> list =  instructorService.getAllInstructors();
+					list.stream().forEach(i->{
+						System.out.println(i.getId() + "--" + i.getName() + "--" + i.getJobTitle());
+					});
 					break;
 				case 3: 
 					break;

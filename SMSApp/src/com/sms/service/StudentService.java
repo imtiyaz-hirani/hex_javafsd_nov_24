@@ -1,9 +1,12 @@
 package com.sms.service;
 
 import java.sql.Connection;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import com.sms.dto.StudentDto;
 import com.sms.model.Address;
 import com.sms.model.Student;
 import com.sms.model.User;
@@ -74,6 +77,23 @@ public class StudentService {
 		studentRepository.insertStudent(student,conn);
 		DbConnection.dbClose();
 		
+	}
+
+	public List<StudentDto> getAllStudentsInfo() {
+		 
+		List<StudentDto> list =  studentRepository.getAllStudentsInfo();
+		List<String> listRural = Arrays.asList(new String[] {"shire","surrey"}); //asList takes array and converts into list
+		List<String> listMetro = Arrays.asList(new String[] {"london","chennai"}); 
+		list.stream().forEach(obj->{
+			if(listRural.contains(obj.getCity()))
+				obj.setCityStatus("RURAL"); 
+			else
+			if(listMetro.contains(obj.getCity()))
+				obj.setCityStatus("METRO");
+			else
+				obj.setCityStatus("UNKNOWN");
+		});
+		return list; 
 	}
 
 }

@@ -2,11 +2,16 @@ package com.sms.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.sms.dto.StudentDto;
 import com.sms.model.Address;
 import com.sms.model.Student;
 import com.sms.model.User;
+import com.sms.utility.DbConnection;
 
 public class StudentRepository {
  
@@ -55,6 +60,34 @@ public class StudentRepository {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public List<StudentDto> getAllStudentsInfo() {
+		Connection conn = DbConnection.dbConnect();
+		List<StudentDto> list = new ArrayList<>();
+		String sql="select s.id,s.name,s.contact,a.city,u.username,a.state "
+				+ " from student s "
+				+ " JOIN address a ON s.address_id = a.id "
+				+ " JOIN user u ON s.user_id = u.id";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			ResultSet rst =  pstmt.executeQuery();
+			while(rst.next()) {
+				StudentDto dto = new StudentDto();
+				dto.setId(rst.getInt(1));
+				dto.setName(rst.getString(2));
+				dto.setContact(rst.getString(3));
+				dto.setCity(rst.getString(4));
+				dto.setUsername(rst.getString(5));
+				dto.setState(rst.getString(6));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			 e.printStackTrace();
+		}
+
+		DbConnection.dbClose();
+		return list;
 	}
 
 }

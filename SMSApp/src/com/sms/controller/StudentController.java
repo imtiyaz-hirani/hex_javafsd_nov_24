@@ -15,6 +15,8 @@ public class StudentController {
 			System.out.println("=========Student Module===========");
 			System.out.println("1. Add Student");
 			System.out.println("2. Fetch Student Info");
+			System.out.println("3. Filter student records by city");
+			System.out.println("4. Search Student by Username and name");
 			System.out.println("0. To Exit");
 			System.out.println("======================================");
 			int input = sc.nextInt();
@@ -35,6 +37,25 @@ public class StudentController {
 				List<StudentDto> list =  studentService.getAllStudentsInfo();
 				list.stream().forEach(e-> System.out.println(e));
 				break; 
+			case 3:
+				list =  studentService.getAllStudentsInfo();
+				System.out.println("Enter city to filter");
+				String city = sc.next();
+				List<StudentDto> filteredList =  studentService.filterByCity(list,city);
+				System.out.println("All students belonging to city: " + city);
+				System.out.println("*******************************************");
+				filteredList.stream().forEach(e-> System.out.println(e));
+				System.out.println("********************************************");
+				break;
+			case 4:
+				list =  studentService.getAllStudentsInfo();
+				System.out.println("Enter name/username to filter");
+				String searchStr = sc.next();
+				filteredList = studentService.searchByNameOrUsername(list,searchStr);
+				System.out.println("*******************************************");
+				filteredList.stream().forEach(e-> System.out.println(e));
+				System.out.println("********************************************");
+				break;
 			default: 
 				System.out.println("Invald Input, try again");
 				break; 

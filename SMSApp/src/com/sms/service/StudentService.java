@@ -1,9 +1,9 @@
 package com.sms.service;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 import com.sms.dto.StudentDto;
@@ -94,6 +94,31 @@ public class StudentService {
 				obj.setCityStatus("UNKNOWN");
 		});
 		return list; 
+	}
+
+	public List<StudentDto> filterByCity(List<StudentDto> list, String city) { //[s1(london),s2(shire),s3(chennai)]
+		List<StudentDto> filteredList =   list.stream()
+												.filter(s->s.getCity().equalsIgnoreCase(city))
+												.toList(); //[s1]
+		  
+		return filteredList;
+	}
+
+	public List<StudentDto> searchByNameOrUsername(List<StudentDto> list, String searchStr) {
+		//List<String> nameList =  list.stream().map(e->e.getName()).toList();
+		//System.out.println(allNameList);//[frodo, samwise, gamaje]
+		 
+		return list.stream()
+				.filter(s->{
+					if(s.getUsername().equals(searchStr))
+						return true; 
+					else {
+						String[] arry = s.getName().split(" ");//[frodo] [samwise gamaje]
+						List<String> listTemp = Arrays.asList(arry); //[frodo] [samwise gamaje]
+						return listTemp.contains(searchStr);
+					}
+				})
+				.toList();
 	}
 
 }

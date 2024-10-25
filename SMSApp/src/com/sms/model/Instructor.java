@@ -67,7 +67,7 @@ public class Instructor implements Comparable<Instructor>{
 		//if(this.salary < i2.salary) {/*ignore*/ return -1; }
 		//if(this.salary == i2.salary) {/*ignore*/ return 0; }
 		
-		return (int)(i2.salary - this.salary);
+		return (int)(this.salary - i2.salary);
 	}
 
 	

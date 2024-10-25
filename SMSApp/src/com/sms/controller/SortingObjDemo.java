@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.sms.model.Instructor;
 import com.sms.service.InstructorService;
+import com.sms.utility.InstructorSortUtility;
 
 public class SortingObjDemo {
 	public static void main(String[] args) {
@@ -15,6 +16,23 @@ public class SortingObjDemo {
 		 Collections.sort(list);
 		 System.out.println("--------After sorting----------");
 		 list.stream().forEach(System.out :: println); 
+		 
+		 System.out.println("-----------COMPARATOR---------------");
+		 list = instructorService.getAllInstructors();
+		 list.stream().forEach(System.out :: println); 
+		 System.out.println("Sort by Salary ASC");
+		 Collections.sort(list, new InstructorSortUtility("salary", "ASC"));
+		 list.stream().forEach(System.out :: println); 
+		 System.out.println("Sort by Salary DESC");
+		 Collections.sort(list, new InstructorSortUtility("salary", "DESC"));
+		 list.stream().forEach(System.out :: println); 
+		 System.out.println("Sort by NAME ASC");
+		 Collections.sort(list, new InstructorSortUtility("name", "ASC"));
+		 list.stream().forEach(System.out :: println); 
+		 System.out.println("Sort by NAME DESC");
+		 Collections.sort(list, new InstructorSortUtility("name", "DESC"));
+		 list.stream().forEach(System.out :: println); 
+		 
 	}
 }
 /*

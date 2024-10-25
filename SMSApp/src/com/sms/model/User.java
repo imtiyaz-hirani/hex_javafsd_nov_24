@@ -1,10 +1,12 @@
 package com.sms.model;
 
+import com.enums.RoleType;
+
 public class User {
 	private int id;
 	private String username;
 	private String password;
-	private String role;
+	private RoleType role;
 
 	public int getId() {
 		return id;
@@ -30,11 +32,13 @@ public class User {
 		this.password = password;
 	}
 
-	public String getRole() {
+	 
+
+	public RoleType getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(RoleType role) {
 		this.role = role;
 	}
 

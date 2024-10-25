@@ -9,6 +9,7 @@ public class StudentDto {
 	private String cityStatus;
 	private String state; 
 	
+	
 	public int getId() {
 		return id;
 	}

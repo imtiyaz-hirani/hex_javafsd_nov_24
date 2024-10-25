@@ -16,6 +16,12 @@ public class InstructorService {
 		 this.sc = sc;
 	}
 
+	
+	public InstructorService() {
+		 
+	}
+
+
 	public Instructor takeInput() {
 		 System.out.println("Enter name");
 		 sc.nextLine();

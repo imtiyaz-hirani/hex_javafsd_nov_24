@@ -1,11 +1,11 @@
 package com.sms.service;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.Arrays;
+ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+import com.enums.RoleType;
 import com.sms.dto.StudentDto;
 import com.sms.model.Address;
 import com.sms.model.Student;
@@ -21,6 +21,13 @@ public class StudentService {
 	public StudentService(Scanner sc) {
 		 this.sc = sc; 
 	}
+
+	
+	public StudentService() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public Student takeInput() {
 		System.out.println("Enter name");
@@ -42,7 +49,7 @@ public class StudentService {
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
-		user.setRole("STUDENT");
+		user.setRole(RoleType.STUDENT);
 		
 		Address address = new Address(city,state);
 		

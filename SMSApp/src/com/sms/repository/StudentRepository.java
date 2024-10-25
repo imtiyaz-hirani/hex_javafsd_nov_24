@@ -22,7 +22,7 @@ public class StudentRepository {
 			pstmt.setInt(1, user.getId());
 			pstmt.setString(2, user.getUsername());
 			pstmt.setString(3, user.getPassword());
-			pstmt.setString(4, user.getRole());
+			pstmt.setString(4, user.getRole().toString());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {

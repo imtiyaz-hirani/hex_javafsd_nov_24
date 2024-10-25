@@ -3,6 +3,7 @@ package com.sms.controller;
 import java.util.List;
 import java.util.Scanner;
 
+import com.enums.RoleType;
 import com.sms.dto.StudentDto;
 import com.sms.model.Student;
 import com.sms.service.StudentService;
@@ -17,6 +18,7 @@ public class StudentController {
 			System.out.println("2. Fetch Student Info");
 			System.out.println("3. Filter student records by city");
 			System.out.println("4. Search Student by Username and name");
+			System.out.println("5. Display all Roles");
 			System.out.println("0. To Exit");
 			System.out.println("======================================");
 			int input = sc.nextInt();
@@ -56,6 +58,15 @@ public class StudentController {
 				filteredList.stream().forEach(e-> System.out.println(e));
 				System.out.println("********************************************");
 				break;
+			case 5:
+				System.out.println("=========ALL ROLES========");
+				for(RoleType role : RoleType.values()) {
+					System.out.println(role);
+				}
+				System.out.println("=========++++++++========");
+
+				break;
+				
 			default: 
 				System.out.println("Invald Input, try again");
 				break; 

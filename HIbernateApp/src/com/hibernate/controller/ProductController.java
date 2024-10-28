@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import com.hibernate.exception.InvalidIdException;
 import com.hibernate.model.Product;
 import com.hibernate.service.ProductService;
+import com.hibernate.utility.FactoryUtility;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -17,18 +18,10 @@ public class ProductController {
 
 	public static void main(String[] args) {
 		 
-		//step 1
-		 //from here i need to reach out to persistence.xml : 
-		SessionFactory sessionFactory = (SessionFactory)
-						Persistence.createEntityManagerFactory("myecomapp");
-		//step 2
-		EntityManager entityManager =  sessionFactory.createEntityManager();
-		
-		//step 3
-		EntityTransaction entityTransaction = entityManager.getTransaction();
+		EntityManager entityManager = FactoryUtility.getInstance().loadPersistence();
 		Scanner sc = new Scanner(System.in);
 		
-		ProductService productService = new ProductService(entityManager,entityTransaction);
+		ProductService productService = new ProductService(entityManager,entityManager.getTransaction());
 		while(true) {
 			System.out.println("------------Product MENU--------------");
 			System.out.println("1. Enter Product in DB");

@@ -1,5 +1,6 @@
 package com.hibernate.service;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.hibernate.model.Address;
@@ -7,6 +8,7 @@ import com.hibernate.model.Customer;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
 public class CustomerService {
 
@@ -55,8 +57,18 @@ public class CustomerService {
 		entityTransaction.commit();
 		
 	}
+
+	public List<Customer> fetchAllCustomer() {
+		entityTransaction.begin();
+		TypedQuery <Customer> customers = entityManager.createQuery("select c from Customer c", Customer.class);
+		entityTransaction.commit();
+		return customers.getResultList();
+	}
 	
-	
+	/*
+	 * select * from customer 
+	 * select c from Customer c 
+	 * */
 	
 	
 

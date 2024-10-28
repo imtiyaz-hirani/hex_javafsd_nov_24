@@ -1,5 +1,6 @@
 package com.hibernate.controller;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.hibernate.model.Customer;
@@ -34,6 +35,10 @@ public class CustomerController {
 				customerService.saveCustomer(customer);
 				System.out.println("Customer with address added to DB");
 				break; 
+			case 2:
+				List<Customer> list= customerService.fetchAllCustomer();
+				list.stream().forEach(c->System.out.println(c));
+				break;
 			default: 
 				System.out.println("Invalid Input, Try Again!!");
 				break;

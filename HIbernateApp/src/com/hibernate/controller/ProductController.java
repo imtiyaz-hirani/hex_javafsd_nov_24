@@ -1,5 +1,6 @@
 package com.hibernate.controller;
 
+import java.util.List;
 import java.util.Scanner;
 
 import org.hibernate.SessionFactory;
@@ -46,6 +47,10 @@ public class ProductController {
 				productService.insert(product);
 				System.out.println("Product added to DB..");
 				break; 
+			case 2: 
+				List<Product> list = productService.getAll();
+				list.stream().forEach(System.out :: println);
+				break; 
 			case 3: 
 				try {
 					product = productService.getById(sc);
@@ -55,12 +60,40 @@ public class ProductController {
 					 System.out.println(e.getMessage());
 				}
 				break; 
+			case 4:
+				try {
+					product = productService.getById(sc);
+					System.out.println("Current Product Details: ");
+					System.out.println(product);
+					System.out.println("Enter Title("+ product.getTitle()  +") "
+							+ " Press Y to retain current value else type new value: ");
+					sc.nextLine();
+					String title = sc.nextLine();
+					if(!title.equals("Y"))
+						product.setTitle(title);
+					
+					System.out.println("Enter Description(Press Y to retain current value else type new value)");
+					String description = sc.nextLine();
+					if(!description.equals("Y"))
+						product.setDescription(description);
+					
+					System.out.println("Enter Price("+ product.getPrice()  +") "
+							+ " Press Y to retain current value else type new value: ");
+					String priceStr = sc.next(); 
+					if(!priceStr.equals("Y"))
+						product.setPrice(Double.parseDouble(priceStr));
+					
+					productService.insert(product);
+					System.out.println("Product details Updated..");
+				} catch (InvalidIdException e) {
+					System.out.println(e.getMessage());
+				}
+				break; 
 			default: 
 				System.out.println("Invalid Input, Try Again!!");
 				break;
 			}
-			System.out.println("--------------------------------------");
-		}
+ 		}
 		
 		
 		sc.close();

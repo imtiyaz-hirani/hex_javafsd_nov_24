@@ -1,5 +1,6 @@
 package com.hibernate.service;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.hibernate.exception.InvalidIdException;
@@ -7,6 +8,7 @@ import com.hibernate.model.Product;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
 public class ProductService {
 
@@ -57,4 +59,14 @@ public class ProductService {
 	}
 
 
+	public List<Product> getAll() {
+		entityTransaction.begin();
+		String jpql="select p from Product p";
+		TypedQuery <Product> typedQuery =   entityManager.createQuery(jpql, Product.class);
+		List<Product> list = typedQuery.getResultList();
+		entityTransaction.commit();
+		return list;
+	}
 }
+
+

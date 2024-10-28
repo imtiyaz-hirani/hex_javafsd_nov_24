@@ -2,6 +2,7 @@ package com.hibernate.service;
 
 import java.util.Scanner;
 
+import com.hibernate.exception.InvalidIdException;
 import com.hibernate.model.Product;
 
 import jakarta.persistence.EntityManager;
@@ -33,6 +34,25 @@ public class ProductService {
 	public void insert(Product product) {
 		entityTransaction.begin();
 		entityManager.persist(product);
+		entityTransaction.commit();
+	}
+
+
+	public Product getById(Scanner sc) throws InvalidIdException {
+		entityTransaction.begin();
+		System.out.println("Enter product id");
+		int id = sc.nextInt();
+		Product product  = entityManager.find(Product.class, id);
+		if(product == null)
+			throw new InvalidIdException("Product ID Invalid...");
+		entityTransaction.commit();
+		return product;
+	}
+
+
+	public void delete(Product product) {
+		entityTransaction.begin();
+		entityManager.remove(product);
 		entityTransaction.commit();
 	}
 

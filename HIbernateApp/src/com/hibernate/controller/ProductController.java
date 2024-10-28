@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.hibernate.SessionFactory;
 
+import com.hibernate.exception.InvalidIdException;
 import com.hibernate.model.Product;
 import com.hibernate.service.ProductService;
 
@@ -44,6 +45,15 @@ public class ProductController {
 				Product product = productService.takeInput(sc);
 				productService.insert(product);
 				System.out.println("Product added to DB..");
+				break; 
+			case 3: 
+				try {
+					product = productService.getById(sc);
+					productService.delete(product);
+					System.out.println("Product deleted from DB...");
+				} catch (InvalidIdException e) {
+					 System.out.println(e.getMessage());
+				}
 				break; 
 			default: 
 				System.out.println("Invalid Input, Try Again!!");

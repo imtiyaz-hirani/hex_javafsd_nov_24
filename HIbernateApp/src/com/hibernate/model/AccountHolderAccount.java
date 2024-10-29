@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "accountholder_account")
-public class AccountHolderAccount {
+public class AccountHolderAccount { //aha
 
 	@Id
 	private int id;

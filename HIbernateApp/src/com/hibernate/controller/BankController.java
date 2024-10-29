@@ -1,5 +1,6 @@
 package com.hibernate.controller;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.hibernate.exception.ResourceNotFoundException;
@@ -69,6 +70,7 @@ public class BankController {
 				while(true) {
 					System.out.println("------EXECUTIVE MENU-------");
 					System.out.println("1. Create Account for AccountHolder");
+					System.out.println("2. Search Account Holder Info with Account by Contact");
 					System.out.println("0. Exit");
 					int input = sc.nextInt();
 					if(input == 0) {
@@ -90,6 +92,12 @@ public class BankController {
 						accountService.insert(account,accountHolder,accountHolderAccount);
 						System.out.println("Account Created......");
 						break; 
+					case 2:
+						System.out.println("Enter contact no. ");
+						List<AccountHolderAccount> list= accountService.fetchAccountHolderWithAccountByContact(sc.next());
+						list.stream().forEach(System.out :: println);
+						
+						break;
 					default:
 						break;
 					}

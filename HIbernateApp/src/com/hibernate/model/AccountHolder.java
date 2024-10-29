@@ -5,7 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class AccountHolder {
+public class AccountHolder { //ah
 	
 	@Id
 	private int id; 

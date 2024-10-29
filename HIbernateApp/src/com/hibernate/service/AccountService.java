@@ -1,6 +1,7 @@
 package com.hibernate.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 import com.hibernate.enums.AccountType;
@@ -12,6 +13,7 @@ import com.hibernate.model.User;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
 public class AccountService {
 	private EntityManager entityManager;
@@ -93,5 +95,17 @@ public class AccountService {
 		 entityManager.persist(accountHolderAccount);
  		 entityTransaction.commit();
 		
+	}
+
+	public List<AccountHolderAccount> fetchAccountHolderWithAccountByContact(String contact) {
+		entityTransaction.begin();
+		String jpql="select aha from AccountHolderAccount aha "
+				+ "	join aha.accountHolder ah "
+				+ "	where ah.contact LIKE '%' || ?1 || '%' " ;
+		TypedQuery<AccountHolderAccount> query = entityManager.createQuery(jpql,AccountHolderAccount.class);
+		query.setParameter(1, contact);
+		List<AccountHolderAccount> list = query.getResultList();
+		entityTransaction.commit();
+		return list;
 	}
 }

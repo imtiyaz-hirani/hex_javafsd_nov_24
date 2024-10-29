@@ -1,13 +1,16 @@
 package com.hibernate.service;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.hibernate.enums.RoleType;
+import com.hibernate.exception.ResourceNotFoundException;
 import com.hibernate.model.Executive;
 import com.hibernate.model.User;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
 
 public class ExecutiveService {
 
@@ -57,4 +60,33 @@ public class ExecutiveService {
 		
 	}
 
+	public Executive checkLogin(String username,String password) throws ResourceNotFoundException {
+		 
+		String jpql="select e from Executive e "
+				+ " JOIN e.user u "
+				+ " where u.username=?1 AND u.password=?2";
+		entityTransaction.begin();
+		TypedQuery<Executive> query = entityManager.createQuery(jpql,Executive.class);
+		query.setParameter(1, username);
+		query.setParameter(2, password); 
+		List<Executive> list = query.getResultList();
+		entityTransaction.commit();
+		
+		if(list!=null && list.isEmpty())
+			throw new ResourceNotFoundException("Invlid Credentials..");
+		
+		return list.get(0);
+	}
+
 }
+
+/*
+ *  select e.* 
+ *  from executive e JOIN user_info u ON e.user_id = u.id
+    where u.username='harry@gmail.com' AND u.password='123456';
+    
+    select e 
+    from Executive e JOIN e.user u 
+    where u.username=?1 AND u.password=?2
+  
+ */

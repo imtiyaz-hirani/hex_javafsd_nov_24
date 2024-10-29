@@ -3,8 +3,7 @@ package com.hibernate.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-
+ 
 import com.hibernate.model.User;
 
 import jakarta.persistence.EntityManager;
@@ -29,24 +28,13 @@ public class AuthService {
 		this.entityTransaction = entityManager.getTransaction();
 	}
 
-	public String checkIfAdmin(Scanner sc) {
-		boolean status = false; 
-		System.out.println("----------BANK LOGIN-------------");
-		System.out.println("Enter Username:");
-		String username = sc.next();
-		System.out.println("Enter password:");
-		String password = sc.next();
-		
+	public boolean checkIfAdmin(String username,String password) {
 		if(map.containsKey(username)) {
 			String mapPassword = map.get(username);
 			if(mapPassword.equals(password))  
-				status = true;
+				return true;
 		}
-		 
-		if(status == true)
-			return username; 
-		else
-			return null;
+		  return false;
 	}
 
 	public boolean checkIfUsernameUnique(String username) {

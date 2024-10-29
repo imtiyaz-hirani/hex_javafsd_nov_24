@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "user_info")
-public class User { 
+public class User { //u
 
 	@Id
 	private int id;

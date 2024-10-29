@@ -5,12 +5,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Executive { //e.user u 
-
+public class AccountHolder {
+	
 	@Id
 	private int id; 
 	private String name; 
-	private double salary; 
+	private int age; 
+	private String contact;
 	
 	@OneToOne
 	private User user;
@@ -31,12 +32,20 @@ public class Executive { //e.user u
 		this.name = name;
 	}
 
-	public double getSalary() {
-		return salary;
+	public int getAge() {
+		return age;
 	}
 
-	public void setSalary(double salary) {
-		this.salary = salary;
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
 	}
 
 	public User getUser() {
@@ -45,6 +54,12 @@ public class Executive { //e.user u
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	@Override
+	public String toString() {
+		return "AccountHolder [id=" + id + ", name=" + name + ", age=" + age + ", contact=" + contact + ", user=" + user
+				+ "]";
 	}
 	
 	

@@ -27,7 +27,8 @@ public class AuthService {
 		this.entityManager = entityManager;
 		this.entityTransaction = entityManager.getTransaction();
 	}
-
+	
+	
 	public boolean checkIfAdmin(String username,String password) {
 		if(map.containsKey(username)) {
 			String mapPassword = map.get(username);

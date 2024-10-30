@@ -26,6 +26,8 @@ public class ProductController {
 			System.out.println("------------Product MENU--------------");
 			System.out.println("1. Enter Product in DB");
 			System.out.println("2. Fetch All Products");
+			System.out.println("7. Fetch All Products-HQL");
+			System.out.println("8. Fetch All Products-Criteria Query");
 			System.out.println("3. Delete Product");
 			System.out.println("4. Update Product Details");
 			System.out.println("0. Exit");
@@ -82,6 +84,14 @@ public class ProductController {
 					System.out.println(e.getMessage());
 				}
 				break; 
+			case 7:
+				list = productService.getAllUsingHQL();
+				list.stream().forEach(System.out :: println);
+				break;
+			case 8:
+				list = productService.getAllUsingCriteriaQuery();
+				list.stream().forEach(System.out :: println);
+				break;
 			default: 
 				System.out.println("Invalid Input, Try Again!!");
 				break;

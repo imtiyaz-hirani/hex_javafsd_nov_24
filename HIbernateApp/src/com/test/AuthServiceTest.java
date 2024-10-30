@@ -2,13 +2,14 @@ package com.test;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.hibernate.service.AuthService;
 import com.hibernate.utility.FactoryUtility;
 
 import jakarta.persistence.EntityManager;
  
-
+ 
 public class AuthServiceTest {
 
 	EntityManager entityManager = FactoryUtility.getInstance().loadPersistence();

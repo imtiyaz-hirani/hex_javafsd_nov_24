@@ -3,8 +3,9 @@ package com.springboot.springapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
+import com.springboot.springapp.exception.InvalidCredentialsException;
+import com.springboot.springapp.model.User;
 import com.springboot.springapp.service.MyService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +26,13 @@ public class MyController {
 	public String readLogin(HttpServletRequest req) { //DI type 2
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
-		System.out.println(username+ "=============" + password);
-		return "dashboard";
+		try {
+			User user = myService.isValid(username,password);
+			return "dashboard";
+		} catch (InvalidCredentialsException e) {
+			req.setAttribute("msg", e.getMessage()); 
+			 return "login"; 
+		}
+		
 	}
 }

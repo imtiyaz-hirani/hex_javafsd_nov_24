@@ -22,6 +22,16 @@
 					</div>
 					<div class="card-body">
 						<form method="get" action="/login-form">
+							<% 
+							if(request.getAttribute("msg") != null){
+							%>
+								<div>
+									<%=request.getAttribute("msg") %>
+								</div>
+							<%
+								}
+							%>
+						 						
 							<label>Enter username: </label>
 						<input type="text" name="username" class="form-control">
 						 

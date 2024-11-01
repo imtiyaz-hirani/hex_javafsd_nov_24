@@ -9,7 +9,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"org.springframework.stereotype.Controller"})
 public class SpringConfig {
 	 
 	@Bean

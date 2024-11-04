@@ -28,6 +28,7 @@ public class MyController {
 			Model model, 
 			HttpServletRequest httpServletRequest,
 			ModelAndView mav) {
+		
 		model.addAttribute("username", "harry@gmail.com");
 		
 		List<String> listSports = Arrays.asList("Chess", "Cricket","Badminton");
@@ -37,6 +38,13 @@ public class MyController {
 		mav.addObject("current_date", LocalDate.now());
 		
 		return mav;
+	}
+	
+	@GetMapping("/welcome-page")
+	public String handleWelcomeRequest(HttpServletRequest req) {
+		String username = req.getParameter("username");
+		req.setAttribute("username", username);
+		return "welcome";
 	}
 	
 	@GetMapping("/login-form")

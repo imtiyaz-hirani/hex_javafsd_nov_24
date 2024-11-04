@@ -40,5 +40,9 @@
 		
 		<hr>
 		<p>Current Date: <%=request.getAttribute("current_date") %> </p> 
+		<br>
+		 
+		<a href="<%=request.getContextPath() %>/welcome-page?username=<%=request.getAttribute("username") %>">Take me to Other Page</a>
+		
 	</body>
 </html>

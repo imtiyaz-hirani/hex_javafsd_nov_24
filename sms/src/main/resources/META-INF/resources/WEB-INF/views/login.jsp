@@ -36,7 +36,7 @@
 						<input type="text" name="username" class="form-control">
 						 
 						<label>Enter password: </label>
-						<input type="text" name="password" class="form-control">
+						<input type="password" name="password" class="form-control">
 						 
 						<input type="submit" value="LOGIN" class="btn btn-primary">
 						</form>

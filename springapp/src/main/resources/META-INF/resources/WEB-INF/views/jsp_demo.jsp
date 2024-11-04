@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="java.time.*" %>
+<%@ page import="java.util.*" %>
 	<!doctype html public "-//w3c/dtd HTML 4.0//en">
 <html>
 	<body>
@@ -22,5 +23,22 @@
 		<%	
 			}
 		%>
+		
+		<hr>
+		<p>Welcome <%=request.getAttribute("username") %>   </p>
+		
+		<h4>Select your fav sports</h4>
+		<% 
+		   List<String> listSports = (List<String>)	request.getAttribute("list"); 
+			
+			for(String s : listSports){
+		%>
+				<p> <%=s %> </p>
+		<%
+			}
+		 %>
+		
+		<hr>
+		<p>Current Date: <%=request.getAttribute("current_date") %> </p> 
 	</body>
 </html>

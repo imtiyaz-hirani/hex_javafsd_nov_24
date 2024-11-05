@@ -25,4 +25,9 @@ public class CourseService {
 		return courseRepository.fetchAllEnrolledCourses(username);
 	}
 
+	public void softDelete(String cid) {
+		courseRepository.softDelete(Integer.parseInt(cid));
+		
+	}
+
 }

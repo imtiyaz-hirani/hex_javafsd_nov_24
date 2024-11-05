@@ -75,6 +75,13 @@ public class StudentController {
 		req.setAttribute("enrolledCourses", enrolledCourses);
 		return "student_dashboard";
 	}
+	
+	@GetMapping("/delete-course")
+	public String deleteCourse(HttpServletRequest req) {
+		String cid = req.getParameter("cid");
+		courseService.softDelete(cid);
+		return "redirect:/student-dashboard";
+	}
 }
 
 

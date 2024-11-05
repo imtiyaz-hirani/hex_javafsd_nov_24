@@ -70,6 +70,8 @@
 										  <td><%=c.getDepartment().getName() %></td>
 										  <td>
 											<a href="<%=request.getContextPath() %>/enroll?cid=<%=c.getId() %>&cname=<%=c.getName() %>">Enroll</a>
+											&nbsp;&nbsp;&nbsp;
+											<a href="<%=request.getContextPath() %>/delete-course?cid=<%=c.getId() %>">Delete</a>
 										  </td>
 										</tr>										
 									<%	

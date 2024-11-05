@@ -25,13 +25,14 @@ public class CourseRepository {
 		//prepare the statement 
 		String sql="select c.id as course_id, c.name as course_name, "
 				+ "	c.credits, d.name as d_name "
-				+ "	from course c join department d ON c.department_id=d.id";
+				+ "	from course c join department d ON c.department_id=d.id where c.is_active=?";
 		
 		PreparedStatementCreator psc = new PreparedStatementCreator() {
 
 			@Override
 			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
 				PreparedStatement pstmt =  con.prepareStatement(sql);
+				pstmt.setBoolean(1, true);
 				return pstmt;
 			}
 			
@@ -102,6 +103,21 @@ public class CourseRepository {
 		};
 		List <Course> list = jdbc.query(psc, rowMapper);
 		return list;
+	}
+
+	public void softDelete(int cid) {
+		String sql="update course set is_active=false where id=?";
+		PreparedStatementCreator psc = new PreparedStatementCreator() {
+
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pstmt =  con.prepareStatement(sql);
+				pstmt.setInt(1, cid);
+				return pstmt;
+			}
+			
+		};
+		jdbc.update(psc);
 	}
 
 }

@@ -13,6 +13,7 @@ import com.spring.sms.service.CourseService;
 import com.spring.sms.service.StudentService;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class StudentController {
@@ -27,19 +28,24 @@ public class StudentController {
 	}
 	
 	@GetMapping("/login-form")
-	public String handleLogin(HttpServletRequest req) {
+	public String handleLogin(HttpServletRequest req, HttpSession session) {
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
 		try {
 			User user =  studentService.verifyLogin(username,password);
 			if(user.getRole().equalsIgnoreCase("student")) {
-				req.setAttribute("username", username);
+				session.setAttribute("username", username);
 				//fetch all courses
 				List<Course> courses =  courseService.fetchAllCourses();
 				//List listCourses courseService.fetchAllCourses();
 				req.setAttribute("listCourses", courses);
+				
+				//fetch all enrolled course 
+				List<Course> enrolledCourses =  courseService.getEnrolledCourses(session.getAttribute("username"));
+				req.setAttribute("enrolledCourses", enrolledCourses);
+				
 				return "student_dashboard"; 
-			}
+			} 
 		} catch (InvalidCredentialsException e) {
 			req.setAttribute("msg",e.getMessage());
 			return "login";
@@ -47,5 +53,31 @@ public class StudentController {
 		return null; 
 	}
 	
+	@GetMapping("/enroll")
+	public String processEnroll(HttpServletRequest req, HttpSession session) {
+		String username = (String)session.getAttribute("username"); 
+		int cid = Integer.parseInt(req.getParameter("cid"));
+		String cname = req.getParameter("cname");
+		studentService.enrollInCourse(username,cid); 
+		req.setAttribute("cname", cname);
+		return "enroll_confirm";
+	}
 	
+	@GetMapping("/student-dashboard")
+	public String goToStudentDashboard(HttpServletRequest req,HttpSession session) {
+		//fetch all courses
+		List<Course> courses =  courseService.fetchAllCourses();
+		//List listCourses courseService.fetchAllCourses();
+		req.setAttribute("listCourses", courses);
+		
+		//fetch all enrolled course 
+		List<Course> enrolledCourses =  courseService.getEnrolledCourses(session.getAttribute("username"));
+		req.setAttribute("enrolledCourses", enrolledCourses);
+		return "student_dashboard";
+	}
 }
+
+
+
+
+

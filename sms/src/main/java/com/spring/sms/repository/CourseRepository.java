@@ -66,6 +66,44 @@ public class CourseRepository {
 		return list;
 	}
 
+	public List<Course> fetchAllEnrolledCourses(String username) {
+		String sql="select c.* "
+				+ " from student s JOIN student_course sc ON s.id=sc.student_id "
+				+ " JOIN course c ON sc.course_id = c.id "
+				+ " JOIN user u ON s.user_id= u.id "
+				+ " where u.username=?";
+		PreparedStatementCreator psc = new PreparedStatementCreator() {
+
+			@Override
+			public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+				PreparedStatement pstmt =  con.prepareStatement(sql);
+				pstmt.setString(1, username);
+				return pstmt;
+			}
+			
+		};
+		
+		RowMapper<Course> rowMapper = new RowMapper<Course>() {
+
+			@Override
+			public Course mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Course course = new Course(); 
+				int courseId = rs.getInt("id");
+				String courseName = rs.getString("name");
+				String credits = rs.getString("credits");
+				
+				course.setId(courseId);
+				course.setName(courseName);
+				course.setCredits(credits);
+				 
+				return course;
+			}
+			
+		};
+		List <Course> list = jdbc.query(psc, rowMapper);
+		return list;
+	}
+
 }
 
 

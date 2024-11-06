@@ -13,4 +13,7 @@ public interface PolicyRepository extends JpaRepository<Policy, Integer>{
 /*
  * T save(T)  
  * List<T> findAll()  
+ * void deleteById(id)
+ * Optional<Product> findById(id)
+ * 
  */

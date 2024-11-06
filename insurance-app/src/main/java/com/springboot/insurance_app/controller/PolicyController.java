@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,6 +53,28 @@ public class PolicyController {
 	@PostMapping("/policy/batch/add")
 	public List <Policy> batchInsert(@RequestBody List<Policy> list) {
 		return policyService.insertInBatch(list);
+	}
+	
+	@PutMapping("/policy/update/{id}")
+	public ResponseEntity<?> updatePolicy(@PathVariable int id, @RequestBody Policy newPolicy,ResponseMessageDto dto) {
+		try {
+			Policy existingPolicyDb = policyService.validate(id);
+			if(newPolicy.getTitle() != null)
+				existingPolicyDb.setTitle(newPolicy.getTitle());
+			if(newPolicy.getDescription() != null)
+				existingPolicyDb.setDescription(newPolicy.getDescription());
+			if(newPolicy.getPolicyCategory() != null)
+				existingPolicyDb.setPolicyCategory(newPolicy.getPolicyCategory());
+			if(newPolicy.getPolicyType() != null)
+				existingPolicyDb.setPolicyType(newPolicy.getPolicyType());
+			
+			//re save this existing policy having new updated value 
+			existingPolicyDb = policyService.insert(existingPolicyDb);
+			return ResponseEntity.ok(existingPolicyDb);
+		} catch (ResourceNotFoundException e) {
+			dto.setMsg(e.getMessage());
+			return ResponseEntity.badRequest().body(dto);
+		}
 	}
 }
 /*

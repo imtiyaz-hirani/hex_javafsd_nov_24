@@ -41,4 +41,9 @@ public class PolicyService {
 		
 	}
 
+	public List <Policy> insertInBatch(List<Policy> list) {
+		return policyRepository.saveAll(list);
+		
+	}
+
 }

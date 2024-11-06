@@ -3,7 +3,6 @@ package com.springboot.insurance_app.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +47,11 @@ public class PolicyController {
 		} 
 		dto.setMsg("policy deleted");
 		return ResponseEntity.ok(dto);
-		
+	}
+	
+	@PostMapping("/policy/batch/add")
+	public List <Policy> batchInsert(@RequestBody List<Policy> list) {
+		return policyService.insertInBatch(list);
 	}
 }
 /*

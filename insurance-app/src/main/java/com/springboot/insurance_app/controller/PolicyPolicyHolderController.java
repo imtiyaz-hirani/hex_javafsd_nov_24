@@ -82,7 +82,8 @@ public class PolicyPolicyHolderController {
 	 * If and when the premium is paid, the policy will get activated. 
 	 * */
 	@PostMapping("/policy/state/{phpid}")
-	public ResponseEntity<?> changePolicyStatus(@RequestParam boolean status, @PathVariable int phpid,
+	public ResponseEntity<?> changePolicyStatus(@RequestParam boolean status, 
+									@PathVariable int phpid,
 									ResponseMessageDto dto) {
 		//validate phpid and fetch object 
 		PolicyPolicyHolder policyPolicyHolder =null; 

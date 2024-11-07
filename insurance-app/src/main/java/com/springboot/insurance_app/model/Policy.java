@@ -10,9 +10,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Policy {
+public class Policy {  //Policy M:1  PolicyHolder
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,13 +24,13 @@ public class Policy {
 	
 	@Column(length = 1000)
 	private String description; 
-	
+	 
 	@Enumerated(EnumType.STRING)
 	private Policy_Category policyCategory;
 	
 	@Enumerated(EnumType.STRING)
 	private PolicyType policyType;
-
+ 
 	public int getId() {
 		return id;
 	}
@@ -70,11 +71,9 @@ public class Policy {
 		this.policyType = policyType;
 	}
 
-	@Override
-	public String toString() {
-		return "Policy [id=" + id + ", title=" + title + ", description=" + description + ", policyCategory="
-				+ policyCategory + ", policyType=" + policyType + "]";
-	}
+	 
+
+	 
 	
 	
 }

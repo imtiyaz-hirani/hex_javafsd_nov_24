@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.springboot.insurance_app.dto.PolicyResponseDto;
+import com.springboot.insurance_app.dto.PolicyStatDto;
 import com.springboot.insurance_app.model.PolicyPolicyHolder;
 
 public interface PolicyPolicyHolderRepository extends JpaRepository<PolicyPolicyHolder, Integer>{
@@ -22,6 +23,13 @@ public interface PolicyPolicyHolderRepository extends JpaRepository<PolicyPolicy
 			+ " JOIN pph.policy p "
 			+ " JOIN pph.policyHolder ph")
 	List<Object[]> getAllPolicyHolderWithPolicyDetails();
+
+	@Query("select p.policyCategory,count(ph.id)  "
+			+ " from PolicyPolicyHolder pph "
+			+ " JOIN pph.policy p "
+			+ " JOIN pph.policyHolder ph "
+			+ " group by p.policyCategory")
+	List<Object[]> getPolicyStats();
 
 }
  /*

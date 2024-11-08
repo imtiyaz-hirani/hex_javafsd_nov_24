@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.insurance_app.dto.PolicyResponseDto;
+import com.springboot.insurance_app.dto.PolicyStatDto;
 import com.springboot.insurance_app.exception.ResourceNotFoundException;
 import com.springboot.insurance_app.model.Policy;
 import com.springboot.insurance_app.model.PolicyHolder;
@@ -71,6 +72,20 @@ public class PolicyPolicyHolderService {
 		}
 		
 		return list;
+	}
+
+	public List<PolicyStatDto> getPolicyStats() {
+		List<Object[]> list= policyPolicyHolderRepository.getPolicyStats();
+		List<PolicyStatDto> listDto = new ArrayList<>();
+		for(Object[] obj : list) {
+			PolicyStatDto dto = new PolicyStatDto();
+			dto.setLabel((obj[0].toString()));
+			Long c = (Long) obj[1];
+			dto.setData( String.valueOf(c));
+			listDto.add(dto);
+		}
+		
+		return listDto; 
 	}
 
 }

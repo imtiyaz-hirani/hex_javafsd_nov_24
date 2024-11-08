@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.insurance_app.dto.PolicyResponseDto;
+import com.springboot.insurance_app.dto.PolicyStatDto;
 import com.springboot.insurance_app.dto.ResponseMessageDto;
 import com.springboot.insurance_app.exception.ResourceNotFoundException;
 import com.springboot.insurance_app.model.Policy;
@@ -110,6 +111,12 @@ public class PolicyPolicyHolderController {
 	public List<PolicyResponseDto> getAllPolicyHolderWithPolicyDetails() {
 		List<PolicyResponseDto> list 
 				=  policyPolicyHolderService.getAllPolicyHolderWithPolicyDetails();
+		return list;
+	}
+	
+	@GetMapping("/policy/policyholder/stat")
+	public List<PolicyStatDto> getPolicyStats() {
+		List<PolicyStatDto> list = policyPolicyHolderService.getPolicyStats();
 		return list;
 	}
 }

@@ -92,6 +92,14 @@ public class PolicyHolderController {
 		return ResponseEntity.ok(list);
 	}
 	
+	//give policy holder details based on policy category 
+	
+	public void getPolicyHolderDetails() {
+		
+	}
+	
+	
+	
 }
 
 

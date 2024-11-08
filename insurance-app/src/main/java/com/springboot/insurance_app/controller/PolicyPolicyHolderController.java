@@ -1,15 +1,18 @@
 package com.springboot.insurance_app.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.insurance_app.dto.PolicyResponseDto;
 import com.springboot.insurance_app.dto.ResponseMessageDto;
 import com.springboot.insurance_app.exception.ResourceNotFoundException;
 import com.springboot.insurance_app.model.Policy;
@@ -100,5 +103,13 @@ public class PolicyPolicyHolderController {
 		//save this obj in the DB and return it 
 		policyPolicyHolder = policyPolicyHolderService.insert(policyPolicyHolder);
 		return ResponseEntity.ok(policyPolicyHolder);
+	}
+	
+	
+	@GetMapping("/policy-holder/policy")
+	public List<PolicyResponseDto> getAllPolicyHolderWithPolicyDetails() {
+		List<PolicyResponseDto> list 
+				=  policyPolicyHolderService.getAllPolicyHolderWithPolicyDetails();
+		return list;
 	}
 }

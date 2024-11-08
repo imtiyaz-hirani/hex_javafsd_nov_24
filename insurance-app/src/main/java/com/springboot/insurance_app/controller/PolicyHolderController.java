@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.insurance_app.dto.ResponseMessageDto;
 import com.springboot.insurance_app.exception.ResourceNotFoundException;
+import com.springboot.insurance_app.model.Policy;
 import com.springboot.insurance_app.model.PolicyHolder;
 import com.springboot.insurance_app.service.PolicyHolderService;
 
@@ -75,8 +76,29 @@ public class PolicyHolderController {
 			dto.setMsg(e.getMessage());
 			return ResponseEntity.badRequest().body(dto);
 		}
-		
-		
-		
 	}
+		
+	@GetMapping("/policy/details/{phid}")
+	public ResponseEntity<?> getPolicyDetails(@PathVariable int phid,ResponseMessageDto dto) {
+		
+		try {
+			policyHolderService.validate(phid);
+		} catch (ResourceNotFoundException e) {
+			dto.setMsg(e.getMessage());
+			return ResponseEntity.badRequest().body(dto);
+		}
+		
+		List<Policy> list =  policyHolderService.getPolicyDetails(phid);
+		return ResponseEntity.ok(list);
+	}
+	
 }
+
+
+
+
+
+
+
+
+

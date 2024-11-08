@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.springboot.insurance_app.exception.ResourceNotFoundException;
+import com.springboot.insurance_app.model.Policy;
 import com.springboot.insurance_app.model.PolicyHolder;
 import com.springboot.insurance_app.repository.PolicyHolderRepository;
 
@@ -44,5 +45,10 @@ public class PolicyHolderService {
 
 	public List<PolicyHolder> insertInBatch(List<PolicyHolder> list) {
 		return policyHolderRepository.saveAll(list);
+	}
+
+	public List<Policy> getPolicyDetails(int phid) {
+		return policyHolderRepository.getPolicyDetails(phid);
+		
 	}
 }

@@ -108,6 +108,13 @@ public class PolicyController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	/*Display policy holders that have paid premium more than given amount (15000)*/
+	public void getPolicyHolderByPremium() {
+		
+	}
+	
+	
 }
 /*
  * GET : @GetMapping

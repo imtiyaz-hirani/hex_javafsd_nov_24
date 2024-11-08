@@ -13,14 +13,14 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "policy_policyholder")
-public class PolicyPolicyHolder {
+public class PolicyPolicyHolder { //pph
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
 	@ManyToOne
-	private Policy policy;
+	private Policy policy; //p
 	
 	@ManyToOne
 	private PolicyHolder policyHolder;

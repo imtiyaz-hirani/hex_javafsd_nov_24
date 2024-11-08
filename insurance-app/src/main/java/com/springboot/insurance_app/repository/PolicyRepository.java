@@ -17,6 +17,10 @@ public interface PolicyRepository extends JpaRepository<Policy, Integer>{
 	List<Policy> getPoliciesByCategoryJPQL(Policy_Category pcategory);
 
 	List<Policy> findByPolicyCategory(Policy_Category pcategory);
+
+	@Query("select p from PolicyPolicyHolder pph join pph.policy p "
+			+ " where pph.premium>=?1")
+	List<Policy> getPolicyByPremiumAmount(double amt);
 	 
 }
 

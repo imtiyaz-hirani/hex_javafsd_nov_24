@@ -92,6 +92,22 @@ public class PolicyController {
 		}
 		 
 	}
+	
+	public void getPolicyByPolicyType(){ //-- todo
+		
+	}
+	
+	@GetMapping("/policy/premium/get")
+	public ResponseEntity<?> getPolicyByPremiumAmount(@RequestParam String amount) {
+		try {
+			double amt = Double.parseDouble(amount);
+			List<Policy> list = policyService.getPolicyByPremiumAmount(amt);
+			return ResponseEntity.ok(list);
+		}
+		catch(NumberFormatException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }
 /*
  * GET : @GetMapping

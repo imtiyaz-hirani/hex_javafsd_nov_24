@@ -54,4 +54,9 @@ public class PolicyService {
 		return policyRepository.findByPolicyCategory(pcategory);
 	}
 
+	public List<Policy> getPolicyByPremiumAmount(double amt) {
+		 
+		return policyRepository.getPolicyByPremiumAmount(amt);
+	}
+
 }

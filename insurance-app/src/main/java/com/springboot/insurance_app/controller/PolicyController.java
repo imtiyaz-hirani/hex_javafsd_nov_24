@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.insurance_app.dto.ResponseMessageDto;
+import com.springboot.insurance_app.enums.Policy_Category;
 import com.springboot.insurance_app.exception.ResourceNotFoundException;
 import com.springboot.insurance_app.model.Policy;
 import com.springboot.insurance_app.service.PolicyService;
@@ -75,6 +77,20 @@ public class PolicyController {
 			dto.setMsg(e.getMessage());
 			return ResponseEntity.badRequest().body(dto);
 		}
+	}
+	
+	@GetMapping("/policy/category/get")
+	public ResponseEntity<?> getPoliciesByCategory(@RequestParam String category) {
+		//convert string to enum
+		try {
+			Policy_Category pcategory = Policy_Category.valueOf(category);
+			List<Policy> list =  policyService.getPoliciesByCategory(pcategory);
+			return ResponseEntity.ok(list);
+		}
+		catch(IllegalArgumentException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		 
 	}
 }
 /*

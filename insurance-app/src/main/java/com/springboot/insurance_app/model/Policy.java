@@ -17,16 +17,16 @@ public class Policy {  //Policy M:1  PolicyHolder
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id; 
+	private int id; //findById(id)
 	
 	@Column(nullable = false)
-	private String title; 
+	private String title; //findByTitle(title)
 	
 	@Column(length = 1000)
-	private String description; 
+	private String description; //findByDescription(description)
 	 
 	@Enumerated(EnumType.STRING)
-	private Policy_Category policyCategory;
+	private Policy_Category policyCategory; //findByPolicyCategory(category)
 	
 	@Enumerated(EnumType.STRING)
 	private PolicyType policyType;

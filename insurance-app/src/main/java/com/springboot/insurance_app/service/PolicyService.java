@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.insurance_app.enums.Policy_Category;
 import com.springboot.insurance_app.exception.ResourceNotFoundException;
 import com.springboot.insurance_app.model.Policy;
 import com.springboot.insurance_app.repository.PolicyRepository;
@@ -44,6 +45,13 @@ public class PolicyService {
 	public List <Policy> insertInBatch(List<Policy> list) {
 		return policyRepository.saveAll(list);
 		
+	}
+
+	public List<Policy> getPoliciesByCategory(Policy_Category pcategory) {
+		 
+		//return policyRepository.getPoliciesByCategoryNativeSql(pcategory.toString());
+		//return policyRepository.getPoliciesByCategoryJPQL(pcategory);
+		return policyRepository.findByPolicyCategory(pcategory);
 	}
 
 }

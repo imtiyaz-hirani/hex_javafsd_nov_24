@@ -16,7 +16,13 @@ public class AuthController {
 	
 	@GetMapping("/api/hello")
 	public String sayHello(Principal principal) {
-		
-		return "api accessed by: " + principal.getName();
+		String user = "";
+		if(principal == null) {
+			user = "TEMP_USER";
+		}
+		else {
+			user = principal.getName();
+		}
+		return "api accessed by: " + user;
 	}
 }

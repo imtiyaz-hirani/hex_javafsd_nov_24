@@ -3,6 +3,9 @@ package com.springboot.SpringHttpBasicSecurity.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +14,7 @@ import com.springboot.SpringHttpBasicSecurity.model.User;
 import com.springboot.SpringHttpBasicSecurity.repository.UserRepository;
 
 @Service
-public class UserService {
+public class UserService  {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -33,4 +36,5 @@ public class UserService {
 		
 		return userRepository.save(user);
 	}
+ 
 }

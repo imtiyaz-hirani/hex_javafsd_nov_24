@@ -31,12 +31,17 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-			.authorizeHttpRequests(authorize -> authorize
-					.requestMatchers(HttpMethod.GET, "/api/hello").hasAuthority("CUSTOMER")                              
+		 .csrf((csrf) -> csrf.disable())
+		 .authorizeHttpRequests(authorize -> authorize
+				 	.requestMatchers(HttpMethod.GET, "/auth/login").authenticated()
+				 	.requestMatchers(HttpMethod.POST, "/auth/switch-status").hasAuthority("EXECUTIVE") 
+				 	.requestMatchers(HttpMethod.GET, "/api/hello").hasAuthority("CUSTOMER")                              
 					.requestMatchers(HttpMethod.POST, "/auth/sign-up").permitAll()  
 				.anyRequest().permitAll()
 			) 
+			
 			.httpBasic(Customizer.withDefaults());
+		 
 		return http.build();
 	}
 	

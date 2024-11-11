@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.springboot.SpringHttpBasicSecurity.exception.InvalidUsernameException;
+import com.springboot.SpringHttpBasicSecurity.exception.ResourceNotFoundException;
 import com.springboot.SpringHttpBasicSecurity.model.User;
 import com.springboot.SpringHttpBasicSecurity.repository.UserRepository;
 
@@ -34,6 +35,21 @@ public class UserService  {
 		user.setPassword(encryptedPass);
 		
 		
+		return userRepository.save(user);
+	}
+
+	public User findByUsername(String username) {
+		 //i am sure that username is valid as Spring has already checked it 
+		return userRepository.findByUsername(username).get();
+	}
+
+	public User updateUserStatus(int id, boolean status) throws ResourceNotFoundException {
+		Optional<User> optional =  userRepository.findById(id);
+		if(optional.isEmpty())
+			throw new ResourceNotFoundException("UserId Invalid");
+		
+		User user = optional.get();
+		user.setEnabled(status);
 		return userRepository.save(user);
 	}
  

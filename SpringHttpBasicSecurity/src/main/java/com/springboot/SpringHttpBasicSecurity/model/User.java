@@ -28,12 +28,13 @@ public class User implements UserDetails{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@Column(nullable = false)
-	private String username;
+	private String username; //findByUsername(username)
 	@Column(nullable = false)
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private Role role;
-
+	private boolean enabled =true; 
+	
 	public int getId() {
 		return id;
 	}
@@ -66,6 +67,11 @@ public class User implements UserDetails{
 		this.role = role;
 	}
 
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		 //convert role into authority 
@@ -92,7 +98,7 @@ public class User implements UserDetails{
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return enabled;
 	}
 
 }

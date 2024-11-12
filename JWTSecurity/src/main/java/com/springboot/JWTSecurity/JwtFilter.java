@@ -36,7 +36,7 @@ public class JwtFilter extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, 
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		 
+		 try {
 		/*
 		 * using request, i will take token from spring 
 		 * using jwtUtil, i vl decode that token: username 
@@ -65,9 +65,14 @@ public class JwtFilter extends OncePerRequestFilter{
 	                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 	                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 	            }
+	            
 	        }
 	        filterChain.doFilter(request, response);
-
+		 }
+		 catch(Exception e) {
+			 System.out.println(e.getMessage());
+			 //define global exception handler... todo 
+		 }
 	}
 
 }

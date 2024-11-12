@@ -39,7 +39,7 @@ public class SecurityConfig {
 		http
 		 .csrf((csrf) -> csrf.disable())
 		 .authorizeHttpRequests(authorize -> authorize
-				 	.requestMatchers(HttpMethod.GET, "/auth/login").authenticated()
+				 	.requestMatchers(HttpMethod.GET, "/api/token").permitAll()
 				 	.requestMatchers(HttpMethod.POST, "/auth/switch-status/{id}").hasRole("EXECUTIVE")
 				 	.requestMatchers(HttpMethod.GET, "/api/hello").hasRole("CUSTOMER")                              
 					.requestMatchers(HttpMethod.POST, "/auth/sign-up").permitAll()  

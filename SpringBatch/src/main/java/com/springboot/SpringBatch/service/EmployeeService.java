@@ -75,4 +75,14 @@ public class EmployeeService {
 		/*Step 5: Save Employee in batch */
 		employeeRepository.saveAll(list);
 	}
+
+	public void deleteEmployeeByCity(String city) {
+		List<Employee> list =  employeeRepository.findAll();
+		List<Employee> filteredList = 
+				list.parallelStream()
+				.filter(e-> e.getAddress().getCity().equalsIgnoreCase(city))
+				.toList();
+		
+		employeeRepository.deleteAll(filteredList);
+	}
 }

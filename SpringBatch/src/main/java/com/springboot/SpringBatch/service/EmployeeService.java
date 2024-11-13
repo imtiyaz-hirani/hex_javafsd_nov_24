@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +30,8 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
+	Logger logger = LoggerFactory.getLogger(EmployeeService.class);
+	
 	public void uploadEmployeethruExcel(MultipartFile file) throws IOException {
 		/* Step 1: Convert file into InputStream */
 		InputStream inputStream = file.getInputStream();

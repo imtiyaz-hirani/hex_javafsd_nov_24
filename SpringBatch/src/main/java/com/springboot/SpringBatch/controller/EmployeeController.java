@@ -9,12 +9,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot.SpringBatch.dto.ResponseMessageDto;
+import com.springboot.SpringBatch.exception.ResourceNotFoundException;
 import com.springboot.SpringBatch.model.Employee;
 import com.springboot.SpringBatch.service.AddressService;
 import com.springboot.SpringBatch.service.EmployeeService;
@@ -52,4 +55,16 @@ public class EmployeeController {
 		Pageable pageable =  PageRequest.of(page, size);
 		return employeeService.getAllEmployee(pageable);
 	}
+	
+	@DeleteMapping("/api/employee/delete/{id}")
+	public ResponseEntity<?> deleteById(@PathVariable int id, 
+			ResponseMessageDto dto) 
+					throws ResourceNotFoundException {
+		
+		employeeService.validate(id);
+		employeeService.deleteById(id);
+		dto.setMsg("Employee Deleted");
+		return ResponseEntity.ok(dto);
+	}
+	
 }

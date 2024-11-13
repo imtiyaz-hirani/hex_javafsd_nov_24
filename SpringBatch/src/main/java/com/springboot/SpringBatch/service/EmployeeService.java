@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot.SpringBatch.exception.ResourceNotFoundException;
 import com.springboot.SpringBatch.model.Address;
 import com.springboot.SpringBatch.model.Employee;
 import com.springboot.SpringBatch.repository.AddressRepository;
@@ -91,6 +93,18 @@ public class EmployeeService {
 	public Page<Employee> getAllEmployee(Pageable pageable) {
 		 
 		return employeeRepository.findAll(pageable) ;
+	}
+
+	public Employee validate(int id) throws ResourceNotFoundException {
+		Optional<Employee> optional = employeeRepository.findById(id);
+		if(optional.isEmpty())
+			throw new ResourceNotFoundException("Invalid ID");
+		return optional.get();
+	}
+
+	public void deleteById(int id) {
+		employeeRepository.deleteById(id);
+		
 	}
 	
 	

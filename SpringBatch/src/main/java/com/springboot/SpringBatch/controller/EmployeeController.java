@@ -1,16 +1,21 @@
 package com.springboot.SpringBatch.controller;
 
-import java.io.IOException;
+ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.springboot.SpringBatch.model.Employee;
 import com.springboot.SpringBatch.service.AddressService;
 import com.springboot.SpringBatch.service.EmployeeService;
 
@@ -40,4 +45,11 @@ public class EmployeeController {
 		employeeService.deleteEmployeeByCity(city);
 	}
 	
+	@GetMapping("/api/employee/all")
+	public Page<Employee> getAllEmployee(
+			@RequestParam(required = false, defaultValue = "0") int page, 
+			@RequestParam(required = false, defaultValue = "5000") int size) {
+		Pageable pageable =  PageRequest.of(page, size);
+		return employeeService.getAllEmployee(pageable);
+	}
 }

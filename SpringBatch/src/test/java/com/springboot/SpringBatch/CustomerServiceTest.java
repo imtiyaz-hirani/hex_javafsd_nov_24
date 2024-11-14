@@ -3,7 +3,9 @@ package com.springboot.SpringBatch;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -108,6 +110,33 @@ public class CustomerServiceTest {
 		
 		//verify that repository method is getting called only once
 		verify(customerRepository, times(1)).saveAll(anyList());
+	}
+	
+	@Test
+	public void deleteCustomerByIdTestSuccess() throws ResourceNotFoundException {
+		//arrange
+		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+		
+		//Act
+		customerService.deleteCustomerById(1);
+		
+		 
+		//verify that repository method is getting called only once
+		verify(customerRepository, times(1)).deleteById(1);
+	}
+	
+	
+	@Test
+	public void deleteCustomerByIdTestFailure() throws ResourceNotFoundException {
+		//arrange
+		when(customerRepository.findById(2)).thenReturn(Optional.empty());
+		
+		//Act
+		 assertThrows(ResourceNotFoundException.class, 
+				 ()->customerService.deleteCustomerById(2) );
+		
+		 //verify that repository method is getting called only once
+		verify(customerRepository, never()).deleteById(2);
 	}
 }
 

@@ -33,6 +33,14 @@ public class CustomerService {
 	public List<Customer> saveAllCustomers(List<Customer> list) {
 		return customerRepository.saveAll(list);
 	}
+	
+	public void deleteCustomerById(int id) throws ResourceNotFoundException {
+		Optional<Customer> optional =  customerRepository.findById(id);
+		if(optional.isEmpty())
+			throw new ResourceNotFoundException("Invalid customer id");
+		
+		customerRepository.deleteById(id);
+	}
 }
 
 

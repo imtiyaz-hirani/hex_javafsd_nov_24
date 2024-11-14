@@ -2,17 +2,20 @@ package com.springboot.SpringBatch;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.springboot.SpringBatch.exception.ResourceNotFoundException;
 import com.springboot.SpringBatch.model.Customer;
 import com.springboot.SpringBatch.repository.CustomerRepository;
 import com.springboot.SpringBatch.service.CustomerService;
@@ -44,5 +47,43 @@ public class CustomerServiceTest {
 		assertNotNull(newCustomer);
 		//assertEquals(customer.getName(), newCustomer.getName());
 		verify(customerRepository, times(1)).save(customer);
+	}
+	
+	@Test
+	public void getByIdTest() {
+		//arrange
+		when(customerRepository.findById(1)).thenReturn(Optional.of(customer));
+		
+		//act
+		Customer newCustomer = null;
+		try {
+			newCustomer =  customerService.getById(1);
+		} catch (ResourceNotFoundException e) { }
+		
+		//test 
+		assertNotNull(newCustomer);
+		assertEquals(customer.getName(), newCustomer.getName());
+		
+		//verify that repository method is getting called only once
+		verify(customerRepository, times(1)).findById(1);
+	}
+	
+	@Test
+	public void getByIdTestNotExist(){
+		//arrange
+		when(customerRepository.findById(2)).thenReturn(Optional.empty());
+		
+		//act
+				Customer newCustomer = null;
+				try {
+					newCustomer =  customerService.getById(2);
+				} catch (ResourceNotFoundException e) { 
+					assertEquals("Customer id Invalid".toLowerCase(),
+							e.getMessage().toLowerCase());
+				}
+			assertNull(newCustomer);
+			
+		//verify that repository method is getting called only once
+		verify(customerRepository, times(1)).findById(2);
 	}
 }

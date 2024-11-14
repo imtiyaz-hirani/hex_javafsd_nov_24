@@ -3,10 +3,13 @@ package com.springboot.SpringBatch;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,9 +33,12 @@ public class CustomerServiceTest {
 	
 	private Customer customer;
 	
+	private List<Customer> list; 
+	
 	@BeforeEach
 	public void initSetup() {
 		customer = new Customer(1,"harry potter","57878478457","london");
+		list = Arrays.asList(customer, new Customer(2,"ronald","8896756453","surrey"));
 	}
 	
 	@Test
@@ -86,4 +92,36 @@ public class CustomerServiceTest {
 		//verify that repository method is getting called only once
 		verify(customerRepository, times(1)).findById(2);
 	}
+	
+	@Test
+	public void saveAllEmployeeTest() {
+		//arrange
+		when(customerRepository.saveAll(anyList())).thenReturn(list);
+		
+		//act
+		List<Customer> newList =  customerService.saveAllCustomers(list);
+		
+		//test
+		assertNotNull(newList);
+		assertEquals(2, newList.size());
+		assertEquals("london", newList.get(0).getCity().toLowerCase());
+		
+		//verify that repository method is getting called only once
+		verify(customerRepository, times(1)).saveAll(anyList());
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

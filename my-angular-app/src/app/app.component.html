@@ -1,10 +1,11 @@
 <header>
+   
     <div class="px-3 py-2 text-bg-dark border-bottom">
       <div class="container">
         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
           <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
-            <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-          </a>
+            <span style="font-size: xx-large; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">MyApp</span>
+        </a>
           
           <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
             <li>
@@ -31,7 +32,9 @@
             </li>
             <li>
               <a href="#" class="nav-link text-white">
-                <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#grid"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-lines-fill d-block mx-auto mb-1" viewBox="0 0 16 16">
+                    <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z"/>
+                  </svg>
                 Users
               </a>
             </li>
@@ -58,3 +61,31 @@
       </div>
     </div>
   </header>
+
+
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">City</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Company</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userData; index as i;">
+        <th scope="row">{{i+1}}</th>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.address.city}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.company.name}}</td>
+        <td> <a href="#">delete</a></td>
+      </tr>
+       
+    </tbody>
+  </table>
+   

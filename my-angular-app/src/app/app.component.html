@@ -1,3 +1,10 @@
+<div *ngIf="isLoggedIn; else userMsg">
+  <h3>Welcome User, go to profile</h3>
+</div>
+<ng-template #userMsg>
+  <h3>Welcome, please login</h3>
+</ng-template>
+
 <h1>My First angular App</h1>
 {{msg}}
 <hr>
@@ -10,3 +17,7 @@ City of the Employee: {{employee.city}}
 <br />
 <button (click)="showAddress()">Show address</button>
 {{employee.address}}
+<br /><br />
+<a href="Javascript::void" (click)="loadData()">load data</a>
+<br />
+{{data}}

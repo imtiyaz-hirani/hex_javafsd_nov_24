@@ -1,9 +1,11 @@
+ 
+import { NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -13,6 +15,8 @@ export class AppComponent implements OnInit, OnDestroy{
   y:any; 
   msg:any;
   employee:any;
+  data: any; 
+  isLoggedIn:boolean=false; 
 
   constructor(){
     console.log('constructor gets called...');
@@ -41,6 +45,9 @@ export class AppComponent implements OnInit, OnDestroy{
     this.employee.address ="101 Kingston lane, thames TW31SE";
   }
  
+  loadData(){
+    this.data="this is sample data";
+  }
   ngOnDestroy(): void {
     console.log('on-destroy gets called...')
 

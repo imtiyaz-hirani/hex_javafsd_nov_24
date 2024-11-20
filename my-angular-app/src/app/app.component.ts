@@ -1,11 +1,11 @@
  
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,NgIf],
+  imports: [RouterOutlet,NgIf, NgFor],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnDestroy{
   employee:any;
   data: any; 
   isLoggedIn:boolean=false; 
+  numArry:any=[];
 
   constructor(){
     console.log('constructor gets called...');
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit, OnDestroy{
       city: 'london',
       address: ""
     };
+    this.numArry = [1,2,5,2,7,8,6];
   }
 
   /**Functions  */

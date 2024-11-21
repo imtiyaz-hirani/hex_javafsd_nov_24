@@ -1,0 +1,136 @@
+
+
+Download and Manage dependencies
+--------------------------------
+npm : node package manager 
+maven: java project 
+
+root-component (parent-component)
+
+<app> 
+   : html file
+   : css file
+   : ts file (typescript)
+
+typescript is super set of java script 
+
+javascript + Object orientation = type script 
+
+Ex 1: Lifecycle of a Component 
+
+-- Component first gets loaded 
+              : component class will be loaded in the memory
+-- Component is constructed 
+              : all class variables are saved in memory and constructor is called 
+-- Component is Initialized <optional>
+              : all class variables will get their values 
+-- Component is destroyed: <optional>
+
+Ex 2: Working with click event. 
+Ex 3: If statement in HTML  : Structural Directives 
+Ex 4: For loop : Structural Directives 
+
+
+Wishist
+-- bootstrap for designing --- yes
+-- iterate over array of objects -- yes
+-- dynamic ops: delete -- no 
+
+Getting header integrated with icons in angular app from bootstrap 
+------------------------------------------------------------------
+1.  npm i bootstrap   /  npm install bootstrap
+    npm i bootstrap-icons
+
+2. Add the css link in styles array in angular.json. 
+NOTE: this is how you can tell angular to refer to this css for any bootstrap component. 
+
+In angular.json, change the styles array to this: 
+
+"styles": [
+              "src/styles.css",
+              "bootstrap/dist/css/bootstrap.min.css",
+              "bootstrap-icons/font/bootstrap-icons.css"
+            ],
+
+3. 
+For icons, go to link , https://icons.getbootstrap.com/
+copy the icon text say, bi bi-apple   for apple icon 
+
+For components, go to 
+https://getbootstrap.com/docs/5.3/customize/components/
+
+For examples of working components with CSS design, 
+https://getbootstrap.com/docs/5.3/examples/
+
+
+mt-2 mt-4: margin top
+
+
+Wishlist
+--------
+-- to implement delete op using arrow function - C
+-- work on sorting and searching of data - X 
+-- transfer data from component to service - C
+-- transfer data into static data file - C
+
+-- need to figure out the architecture of the project 
+
+Activating Routing in App
+=========================
+-- create page components 
+-- configure routes array in app.routes.ts file 
+[
+    {
+        path: '' , component: DashboardPageComponent
+    },
+    {
+        path:'user', component : UserPageComponent
+    }
+]
+
+-- go to app.component.html and add a <router-outlet>
+
+-- configure ur links, usually in navbar or sidebar, 
+<a [routerLink]="['/posts']" >POST</a>
+
+--- calling the api : GET, POST, PUT, DELETE
+
+GET
+HttpClient   -- HttpClientModule 
+
+Step 1: go to app.config.ts and add function provideHttpClient(), to providers array -- ONE TIME THING
+Step 2: go to service and inject HttpClient 
+
+constructor(private httpClient: HttpClient){ } //inject httpClient 
+
+Step 3: Call API and return Observable 
+
+getAllPost() : Observable<any>{  
+       return this.httpClient.get(this.getAllApi);
+    }
+
+Step 4: Inject service in component 
+
+constructor(private postService: PostService){ }
+
+Step 5: Subscribe to observable 
+
+this.postService.getAllPost().subscribe({ 
+      next : (data)=>{     //it goes here if data is available 
+        //console.log(data)
+        this.posts = data;
+      },
+      error: (err)=>{   //it goes here if api gives any error 
+        this.errorMsg = err.message;
+      }
+    });
+
+Step 6: Iterate over the data coming from API
+errorMsg: string | undefined;
+
+{{errorMsg}}
+<p *ngFor="let p of posts">
+    {{p.id}}. {{p.title}}
+</p>
+
+

@@ -1,5 +1,37 @@
-<h2>All Todos</h2>
-{{errorMsg}}
-<p *ngFor="let t of todos">
-    {{t.id}}.  {{t.title}}
-</p>
+<div class="container-fluid mt-4">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-secondary sort-bar" >
+                <button type="button" class="btn btn-outline-primary" 
+                (click)="filterTodo('complete')">
+                    Show Completed({{numComplete}})</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-outline-secondary"
+                (click)="filterTodo('in-complete')">
+                    Show Incomplete({{numInComplete}})</button>
+                &nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-outline-danger" 
+                (click)="filterTodo('reset')" >
+                    Reset All({{numTotal}})</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3" *ngFor="let t of todos">
+            <div class="card mb-2">
+                <div class="card-header">
+                    ID: {{t.id}} , Created by User ID: {{t.userId}}
+                </div>
+                <div class="card-body">
+                    {{t.title}}
+                </div>
+                <div class="card-footer">
+                    Conpleted?: {{t.completed}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 

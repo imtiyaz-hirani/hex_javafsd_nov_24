@@ -1,0 +1,26 @@
+
+<table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">User Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">City</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Company</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of userData; index as i;">
+        <th scope="row">{{i+1}}</th>
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.address.city}}</td>
+        <td>{{user.phone}}</td>
+        <td>{{user.company.name}}</td>
+        <td> <a href="#" (click)="onDelete(user.id)">delete</a></td>
+      </tr>
+       
+    </tbody>
+  </table>

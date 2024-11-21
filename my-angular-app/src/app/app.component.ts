@@ -9,7 +9,7 @@ import { UserListComponent } from "./components/user-list/user-list.component";
 
 @Component({
   selector: 'app-root',
-  imports: [NavbarComponent, LoginHeaderComponent, UserListComponent],
+  imports: [RouterOutlet, NavbarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

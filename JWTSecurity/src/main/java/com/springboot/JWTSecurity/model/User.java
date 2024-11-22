@@ -27,6 +27,8 @@ public class User implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	private String name; 
 	@Column(nullable = false)
 	private String username; //findByUsername(username)
 	@Column(nullable = false)

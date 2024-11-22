@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.springboot.JWTSecurity.enums.Role;
 import com.springboot.JWTSecurity.exception.InvalidUsernameException;
 import com.springboot.JWTSecurity.model.User;
 import com.springboot.JWTSecurity.repository.UserRepository;
@@ -30,7 +31,10 @@ public class UserService {
 		String encryptedPass = passEncoder.encode(user.getPassword());
 		user.setPassword(encryptedPass);
 		
+		//set the role
+		user.setRole(Role.CUSTOMER);
 		
+		 
 		return userRepository.save(user);
 	}
 

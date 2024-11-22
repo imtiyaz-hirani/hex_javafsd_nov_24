@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-header',
@@ -8,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class LoginHeaderComponent {
 
+  constructor(private router: Router){}
+  navigateToSignUp(){
+    this.router.navigateByUrl("/sign-up");
+  }
 }

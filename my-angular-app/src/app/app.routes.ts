@@ -4,6 +4,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { TodoPageComponent } from './pages/todo-page/todo-page.component';
 import { PostPageComponent } from './pages/post-page/post-page.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { SignupComponent } from './pages/signup/signup.component';
 
 export const routes: Routes = [
     {
@@ -17,6 +18,9 @@ export const routes: Routes = [
     },
     {
         path: 'posts', component : PostPageComponent
+    },
+    {
+        path:'sign-up', component : SignupComponent
     },
     {
         path: '**', component : PageNotFoundComponent

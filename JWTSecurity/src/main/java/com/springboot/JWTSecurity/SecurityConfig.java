@@ -40,6 +40,7 @@ public class SecurityConfig {
 		 .csrf((csrf) -> csrf.disable())
 		 .authorizeHttpRequests(authorize -> authorize
 				 	.requestMatchers(HttpMethod.GET, "/api/token").permitAll()
+				 	.requestMatchers(HttpMethod.GET, "/auth/user").authenticated()
 				 	 .requestMatchers(HttpMethod.POST, "/auth/sign-up").permitAll() 
 				 	 .requestMatchers(HttpMethod.GET, "/api/hello").authenticated()
 				 	.requestMatchers(HttpMethod.GET, "/api/executive/hello").hasAuthority("EXECUTIVE") 

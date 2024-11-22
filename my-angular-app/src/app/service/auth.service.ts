@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
@@ -6,12 +6,27 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 export class AuthService{
-  
-    signupApi='http://localhost:8081/auth/sign-up';
+   
+    private signupApi = 'http://localhost:8081/auth/sign-up';
+    private loginApi = 'http://localhost:8081/api/token';
+    private userDetailsApi = 'http://localhost:8081/auth/user';
+    constructor(private httpClient: HttpClient) { }
 
-    constructor(private httpClient: HttpClient){}
+    signUp(user: any): Observable<any> {
+        return this.httpClient.post(this.signupApi, user);
+    }
 
-    signUp(user: any) : Observable<any>{
-        return this.httpClient.post(this.signupApi,user);
-      }
+    login(user: any): Observable<any> {
+        return this.httpClient.post(this.loginApi, user);
+    }
+
+    getUserDetails(token: any): Observable<any>{
+         
+        const httpOptions = {
+            headers: new HttpHeaders({
+               Authorization: 'Bearer '+ token
+            })
+          };
+        return this.httpClient.get(this.userDetailsApi,httpOptions); 
+    }
 }

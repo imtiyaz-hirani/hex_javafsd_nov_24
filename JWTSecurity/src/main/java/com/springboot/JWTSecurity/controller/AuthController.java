@@ -89,4 +89,12 @@ public class AuthController {
 		}
 		return "api accessed by: " + user;
 	}
+	
+	@GetMapping("/auth/user")
+	public User getUserDetails(Principal principal) {
+		String loggedInUsername = principal.getName();
+		User user  = (User)userSecurityService.loadUserByUsername(loggedInUsername);
+		return user; 
+	}
+	
 }

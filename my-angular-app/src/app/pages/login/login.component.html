@@ -13,7 +13,9 @@
                     <div class="alert alert-danger mb-4" *ngIf="errorMsg">
                         {{errorMsg}}
                     </div>
-                    
+                    <div class="alert alert-danger mb-4" *ngIf="msg">
+                        {{msg}}
+                    </div>
                     <div class="mb-4">
                         <label>Enter Username: </label> 
                         <input type="text" class="form-control" [(ngModel)]="username">

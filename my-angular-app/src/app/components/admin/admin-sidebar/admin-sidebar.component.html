@@ -1,0 +1,29 @@
+ 
+    <nav>
+            <ul class="mcd-menu">
+                <li>
+                    <a [routerLink]="['onboard-executive']" [ngClass]="getClassOn()" (mouseover)="linkClick('onboard')">
+                        <i class="fa fa-home"></i>
+                        <strong>Onboard Executive</strong>
+                         
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="['manage-executive']" [ngClass]="getClassMa()" (mouseover)="linkClick('manage')">
+                        <i class="fa fa-edit"></i>
+                        <strong>Manage Executive</strong>
+                        
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <i class="fa fa-gift"></i>
+                        <strong>Other Functionaliyy</strong>
+                         
+                    </a>
+                </li>
+                  
+                 
+            </ul>
+        </nav>
+ 

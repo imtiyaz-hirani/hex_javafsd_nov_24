@@ -1,5 +1,5 @@
 package com.springboot.JWTSecurity.enums;
 
 public enum Role {
-	CUSTOMER,EXECUTIVE,ADMIN
+	CUSTOMER,EXECUTIVE,ADMIN 
 }

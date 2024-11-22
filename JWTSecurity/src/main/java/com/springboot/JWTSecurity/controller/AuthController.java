@@ -76,6 +76,10 @@ public class AuthController {
 			dto.setMsg(e.getMessage());
 			 return ResponseEntity.badRequest().body(dto);
 		}
+		catch (Exception e) {
+			dto.setMsg(e.getMessage());
+			 return ResponseEntity.badRequest().body(dto);
+		}
 	}
 	
 	@GetMapping("/api/executive/hello")

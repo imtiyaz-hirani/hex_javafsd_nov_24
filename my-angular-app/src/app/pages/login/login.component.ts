@@ -2,7 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +15,15 @@ export class LoginComponent {
   password: string="";
   successMsg: string | undefined;
   errorMsg:string | undefined;
-  
-  constructor(private authService: AuthService, private router: Router){}
+  msg: string | undefined; 
+
+  constructor(private authService: AuthService, private router: Router, 
+              private actRoute: ActivatedRoute
+  ){
+    this.actRoute.queryParams.subscribe(p=>{
+       this.msg = p['msg'];
+    })
+  }
   onLogin(){
     this.authService.login({
       username: this.username,
@@ -35,10 +42,16 @@ export class LoginComponent {
             let role = data.role; 
             switch(role){
               case 'CUSTOMER':
-                console.log('i vl take you to customer screen')
+                //console.log('i vl take you to customer screen');
+                this.router.navigateByUrl("/customer");
                 break; 
               case 'EXECUTIVE':
-                console.log('i vl take you to executive screen')
+                //console.log('i vl take you to executive screen')
+                this.router.navigateByUrl("/executive");
+                break; 
+              case 'ADMIN': 
+                //console.log('i vl take you to admin screen')
+                this.router.navigateByUrl("/admin");
                 break; 
               default: 
                 this.router.navigateByUrl("/broken-link");

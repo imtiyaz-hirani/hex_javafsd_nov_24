@@ -22,7 +22,8 @@ export const routes: Routes = [
                 path:'sign-up', component : SignupComponent
             }
         ]
-    },
+        }   
+        ,
     {
         path:'admin', component : AdminPageComponent, children:[
             {

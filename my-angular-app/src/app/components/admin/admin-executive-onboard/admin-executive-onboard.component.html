@@ -1,1 +1,55 @@
-<p>admin-executive-onboard works!</p>
+<div class="container">
+    <div class="row">
+      
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                    Executive Onboarding
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-primary mb-4" *ngIf="successMsg">
+                        {{successMsg}}
+                    </div>
+                    <div class="alert alert-danger mb-4" *ngIf="errorMsg">
+                        {{errorMsg}}
+                    </div>
+                    <div class="mb-4">
+                        <label>Enter Name: </label>
+                        <input type="text" class="form-control" >
+                    </div>
+                    <div class="mb-4">
+                        <label>Enter Contact: </label>
+                        <input type="text" class="form-control" >
+                    </div>
+                    <div class="mb-4">
+                        <label>Select Department: </label>
+                        <select class="form-control" >
+                            <option *ngFor="let d of departments" id="{{d}}">
+                                {{d}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label>Select Title: </label> 
+                    
+                        <span *ngFor="let j of jobTitles">
+                            <br />
+                        <input type="radio" name="jt"  value="{{j}}" > {{j}}
+                        </span>
+                    </div>
+                    <div class="mb-4">
+                        <label>Enter Username: </label> 
+                        <input type="text" >
+                    </div>
+                    <div class="mb-4">
+                        <label>Enter Password: </label>
+                        <input type="password"  >
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary"  >Add Executive</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

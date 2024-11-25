@@ -44,7 +44,9 @@ public class SecurityConfig {
 				 	 .requestMatchers(HttpMethod.POST, "/auth/sign-up").permitAll() 
 				 	 .requestMatchers(HttpMethod.GET, "/api/hello").authenticated()
 				 	.requestMatchers(HttpMethod.GET, "/api/executive/hello").hasAuthority("EXECUTIVE") 
-				 	
+				 	.requestMatchers(HttpMethod.POST, "/executive/add").hasAuthority("ADMIN") 
+				 	.requestMatchers(HttpMethod.GET, "/department/all").authenticated()
+				 	.requestMatchers(HttpMethod.GET, "/job-title/all").authenticated()
 				.anyRequest().permitAll()
 			) 
 			.sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

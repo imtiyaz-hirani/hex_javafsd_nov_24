@@ -1,55 +1,131 @@
 <div class="container">
     <div class="row">
       
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-header">
-                    Executive Onboarding
+        <div class="col-md-12">
+            <form [formGroup]="executiveForm" (ngSubmit)="onFormSubmit()">
+                <div class="card">
+                    <div class="card-header">
+                        Executive Onboarding
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="alert alert-primary mb-4" *ngIf="successMsg">
+                                    {{successMsg}}
+                                </div>
+                                <div class="alert alert-danger mb-4" *ngIf="errorMsg">
+                                    {{errorMsg}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <label>Enter Name: </label>
+                                    <input type="text" class="form-control" formControlName="name" (keyup)="resetMsg()">
+                                    <span *ngIf="executiveForm.controls['name'].touched 
+                                                                 && executiveForm.controls['name'].invalid"> 
+                                        <span *ngIf="executiveForm.controls['name'].errors?.['required']">
+                                            <small>Name is mandatory</small>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="mb-4">
+                                    <label>Enter Contact: </label>
+                                    <input type="text" class="form-control"  formControlName="contact" (keyup)="resetMsg()">
+                                    <span *ngIf="executiveForm.controls['contact'].touched 
+                                                                 && executiveForm.controls['contact'].invalid"> 
+                                        <span  *ngIf="executiveForm.controls['contact'].errors?.['required']">
+                                            <small>contact is mandatory</small>
+                                        </span>
+                                        <span  *ngIf="executiveForm.get('contact')?.hasError('minlength') 
+                                                        || executiveForm.get('contact')?.hasError('maxlength')">
+                                            <small>please provide 10 digit contact without country code(+91). </small>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="mb-4">
+                                    <label>Select Department: </label>
+                                    <select class="form-control"  formControlName="department" >
+                                        <option *ngFor="let d of departments" id="{{d}}" >
+                                            {{d}}
+                                        </option>
+                                    </select>
+                                    <span *ngIf="executiveForm.controls['department'].touched 
+                                                                 && executiveForm.controls['department'].invalid"> 
+                                        <span  *ngIf="executiveForm.controls['department'].errors?.['required']">
+                                            <small>department is mandatory</small>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="mb-4">
+                                    <label>Select Title: </label> 
+                                    
+                                    <span *ngFor="let j of jobTitles">
+                                        <br />
+                                    <input type="radio"    value="{{j}}"  formControlName="jobTitle"> {{j}}
+                                    </span>
+                                    <br />
+                                    <span *ngIf="executiveForm.controls['jobTitle'].touched 
+                                        && executiveForm.controls['jobTitle'].invalid"> 
+       
+                                        <span  *ngIf="executiveForm.controls['jobTitle'].errors?.['required']">
+                                            <small>jobTitle is mandatory</small>
+                                        </span>
+                                    </span>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-4">
+                                    <label>Enter Username: </label> 
+                                    <input type="text" class="form-control"  formControlName="username">
+                                    <span *ngIf="executiveForm.controls['username'].touched 
+                                                    && executiveForm.controls['username'].invalid"> 
+                                        <span *ngIf="executiveForm.controls['username'].errors?.['required']">
+                                            <small>username is mandatory</small>
+                                        </span>
+                                        <span  *ngIf="executiveForm.get('username')?.hasError('minlength')">
+                                            <small>username should be minimum of size 4   </small>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="mb-4">
+                                    <label>Enter Password: </label>
+                                    <input type="password" class="form-control"  formControlName="password">
+                                    <span *ngIf="executiveForm.controls['password'].touched 
+                                                    && executiveForm.controls['password'].invalid">
+                                        <span *ngIf="executiveForm.controls['password'].errors?.['required']">
+                                            <small>password is mandatory</small>
+                                        </span>
+                                        <span  *ngIf="executiveForm.controls['password'].errors?.['pattern']">
+                                            <small>password should have Minimum eight characters, at least one uppercase letter, one lowercase letter and one number   </small>
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="mb-4">
+                                    <label>Enter Password Again: </label>
+                                    <input type="password"  class="form-control"  formControlName="rePassword">
+                                    <span *ngIf="executiveForm.controls['rePassword'].touched 
+                                                    && executiveForm.controls['rePassword'].invalid">
+                                        <span *ngIf="executiveForm.controls['rePassword'].errors?.['required']">
+                                            <small>please enter password again</small>
+                                        </span>
+                                        <span  *ngIf="executiveForm.controls['rePassword'].errors?.['pattern']">
+                                            <small>password should have Minimum eight characters, at least one uppercase letter, one lowercase letter and one number   </small>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary" [disabled]="executiveForm.invalid" >Add Executive</button>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="alert alert-primary mb-4" *ngIf="successMsg">
-                        {{successMsg}}
-                    </div>
-                    <div class="alert alert-danger mb-4" *ngIf="errorMsg">
-                        {{errorMsg}}
-                    </div>
-                    <div class="mb-4">
-                        <label>Enter Name: </label>
-                        <input type="text" class="form-control" >
-                    </div>
-                    <div class="mb-4">
-                        <label>Enter Contact: </label>
-                        <input type="text" class="form-control" >
-                    </div>
-                    <div class="mb-4">
-                        <label>Select Department: </label>
-                        <select class="form-control" >
-                            <option *ngFor="let d of departments" id="{{d}}">
-                                {{d}}
-                            </option>
-                        </select>
-                    </div>
-                    <div class="mb-4">
-                        <label>Select Title: </label> 
-                    
-                        <span *ngFor="let j of jobTitles">
-                            <br />
-                        <input type="radio" name="jt"  value="{{j}}" > {{j}}
-                        </span>
-                    </div>
-                    <div class="mb-4">
-                        <label>Enter Username: </label> 
-                        <input type="text" >
-                    </div>
-                    <div class="mb-4">
-                        <label>Enter Password: </label>
-                        <input type="password"  >
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary"  >Add Executive</button>
-                </div>
-            </div>
+            </form>
         </div>
+        
+
     </div>
 </div>

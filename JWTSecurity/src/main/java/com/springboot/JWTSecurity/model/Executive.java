@@ -30,7 +30,16 @@ public class Executive {
 	
 	@OneToOne
 	private User user;
-
+    /*
+     name 
+     contact
+     department
+     jobTitle
+     user:{
+     	username:
+     	password: 
+     }
+     * */
 	public int getId() {
 		return id;
 	}

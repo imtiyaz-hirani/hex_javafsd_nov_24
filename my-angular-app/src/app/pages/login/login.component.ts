@@ -59,11 +59,16 @@ export class LoginComponent {
             }
           },
           error: (err)=>{
+            this.successMsg = undefined
+             this.msg = undefined
             this.errorMsg = err.error.msg; 
           }
         })
       },
       error: (err)=>{
+        console.log(err);
+        this.successMsg = undefined
+        this.msg = undefined
         this.errorMsg = err.error.msg; 
       }
     })

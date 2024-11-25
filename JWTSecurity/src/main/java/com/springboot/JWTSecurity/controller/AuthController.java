@@ -35,7 +35,7 @@ public class AuthController {
 	private UserService userService;
 	
 	@PostMapping("/api/token")
-	public ResponseEntity<?> getToken(@RequestBody User user, JwtDto dto ) {
+	public ResponseEntity<?> getToken(@RequestBody User user, JwtDto dto,ResponseMessageDto dtom ) {
 		try {
 		Authentication auth 
 				= new UsernamePasswordAuthenticationToken
@@ -52,7 +52,8 @@ public class AuthController {
 		return ResponseEntity.ok(dto);
 		}
 		catch(AuthenticationException ae) {
-			return ResponseEntity.badRequest().body(ae.getMessage());
+			dtom.setMsg(ae.getMessage());
+			return ResponseEntity.badRequest().body(dtom);
 		}
 	}
 	

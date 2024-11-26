@@ -47,6 +47,7 @@ public class SecurityConfig {
 				 	.requestMatchers(HttpMethod.POST, "/executive/add").hasAuthority("ADMIN") 
 				 	.requestMatchers(HttpMethod.GET, "/department/all").authenticated()
 				 	.requestMatchers(HttpMethod.GET, "/job-title/all").authenticated()
+				 	.requestMatchers(HttpMethod.GET, "/api/users-stat").hasAuthority("ADMIN")
 				.anyRequest().permitAll()
 			) 
 			.sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -58,7 +59,7 @@ public class SecurityConfig {
 	
 	
 	@Bean
-	PasswordEncoder getEncoder() {
+	BCryptPasswordEncoder getEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	

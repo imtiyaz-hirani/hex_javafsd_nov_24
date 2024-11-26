@@ -11,6 +11,7 @@ import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { CustomerPageComponent } from './pages/customer-page/customer-page.component';
 import { AdminExecutiveOnboardComponent } from './components/admin/admin-executive-onboard/admin-executive-onboard.component';
 import { AdminExecutiveListComponent } from './components/admin/admin-executive-list/admin-executive-list.component';
+import { AuthGuardService } from './service/auth-guard.service';
 
 export const routes: Routes = [
     {
@@ -25,7 +26,7 @@ export const routes: Routes = [
         }   
         ,
     {
-        path:'admin', component : AdminPageComponent, children:[
+        path:'admin', component : AdminPageComponent, canActivate:[AuthGuardService] ,children:[
             {
                 path:'onboard-executive', component : AdminExecutiveOnboardComponent
             },

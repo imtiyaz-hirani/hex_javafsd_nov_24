@@ -3,7 +3,7 @@
         <div class="col-md-6">
              <div class="card">
                 <div class="card-header">
-                      Overall User Stats    
+                      Overall User Stats - Bar Chart   
                 </div>
                 <div class="card-body">
                     <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
@@ -11,7 +11,22 @@
              </div>   
         </div>
         <div class="col-md-6">
-
+            <div class="card">
+                <div class="card-header">
+                      Overall User Stats - Donut  
+                </div>
+                <div class="card-body" >
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-lg-11">
+                            <p-chart type="doughnut" [data]="basicData" 
+                            [options]="basicOptionsDonut" 
+                            [width]='donetWidth' />
+                        </div>
+                         
+                    </div>
+                </div>
+             </div> 
         </div>
     </div>
 

@@ -12,9 +12,10 @@ export class AdminDashboardComponent implements OnInit{
   
   basicData: any;
   basicOptions: any;
+  basicOptionsDonut:any;
   labels: string[] = [];
   stataData: number[] =[];
-
+  donetWidth: string = '77%';
   constructor(private adminService: AdminService){
 
   }
@@ -71,6 +72,18 @@ export class AdminDashboardComponent implements OnInit{
             }
         }
         };
+
+        this.basicOptionsDonut = {
+          cutout: '30%',
+           
+          plugins: {
+              legend: {
+                  labels: {
+                      color: textColor
+                  }
+              }
+          }
+      };
       },
       error: ()=>{}
     })    

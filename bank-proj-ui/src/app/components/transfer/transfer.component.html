@@ -1,0 +1,43 @@
+<div class="card">
+    <div class="card-header">
+      Transfer money through NEFT - MAX limit 5,00,000/- (2 Lakhs per day). 
+    </div>
+    <div class="card-body">
+        <div>
+            <label>Select Account: </label>
+            <select class="form-control">
+                <option>---select account--- </option>
+                <option *ngFor="let act of myAccounts" value="{{act.accountNum}}"> 
+                    {{act.accountNum}} --- {{act.accountType}} 
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; balance: {{act.balance}}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; transfer limit: {{act.transferLimit}}
+                </option>
+            </select>
+        </div>
+        <div class="mt-4">
+            <label>Select Benificiary: </label>
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="text" class="form-control" 
+                    placeholder="Enter sender account number" [(ngModel)]="accountNum">
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" (click)="verify()">Verify</button>
+                </div>
+                
+            </div>
+            <span *ngIf="customer">Name of the Benificiary: {{customer.name}}</span>
+            <span *ngIf="!customer">Invalid Account Number</span>
+                    
+                    
+        </div>
+        <div class="mt-4">
+            <label>Enter Amount to be transfered:</label>
+            <input type="number" class="form-control">
+        </div>
+    </div>
+    <div class="card-footer"> 
+     
+        <button type="submit" class="btn btn-primary">Transfer Amount</button>
+   
+    </div>

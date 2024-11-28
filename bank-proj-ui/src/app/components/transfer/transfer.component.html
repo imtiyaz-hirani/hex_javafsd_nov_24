@@ -3,9 +3,12 @@
       Transfer money through NEFT - MAX limit 5,00,000/- (2 Lakhs per day). 
     </div>
     <div class="card-body">
-        <div>
+        <div class="alert alert-danger" *ngIf="msg">
+            {{msg}}
+        </div>
+        <div class="mt-4">
             <label>Select Account: </label>
-            <select class="form-control">
+            <select class="form-control" [(ngModel)]="senderAccountNum" (change)="validate()">
                 <option>---select account--- </option>
                 <option *ngFor="let act of myAccounts" value="{{act.accountNum}}"> 
                     {{act.accountNum}} --- {{act.accountType}} 
@@ -19,11 +22,11 @@
             <div class="row">
                 <div class="col-md-8">
                     <input type="text" class="form-control" 
-                    placeholder="Enter sender account number" [(ngModel)]="accountNum">
+                    placeholder="Enter sender account number" [(ngModel)]="beneficiaryAccountNum" (keyup)="verify()">
                 </div>
-                <div class="col-sm-4">
+                <!-- <div class="col-sm-4">
                     <button class="btn btn-primary" (click)="verify()">Verify</button>
-                </div>
+                </div> -->
                 
             </div>
             <span *ngIf="customer">Name of the Benificiary: {{customer.name}}</span>
@@ -33,11 +36,13 @@
         </div>
         <div class="mt-4">
             <label>Enter Amount to be transfered:</label>
-            <input type="number" class="form-control">
+            <input type="number" class="form-control" [(ngModel)]="amount" (keyup)="validate()">
         </div>
     </div>
     <div class="card-footer"> 
      
-        <button type="submit" class="btn btn-primary">Transfer Amount</button>
-   
+        <button type="button" class="btn btn-primary" disabled (click)="transfer()" *ngIf="!isEnabled">Transfer Amount</button>
+        
+        <button type="button" class="btn btn-primary" (click)="transfer()" *ngIf="isEnabled">Transfer Amount</button>
+
     </div>

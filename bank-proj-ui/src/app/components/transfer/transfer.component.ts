@@ -11,8 +11,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class TransferComponent {
   myAccounts: any[] =[];
-  accountNum: any; 
+  beneficiaryAccountNum: any | undefined; 
   customer: any | undefined; 
+  senderAccountNum: any | undefined; 
+  msg:string | undefined; 
+  isEnabled: boolean = false; 
+  amount: any;
 
   constructor(private customerService: CustomerService){
     this.customerService.getAllAccounts(localStorage.getItem('username'))
@@ -39,13 +43,59 @@ export class TransferComponent {
   }
 
   verify(){
-    //console.log(this.accountNum)
-    this.customerService.getCustomerDetailsByAccountNo(this.accountNum)
+    console.log(this.beneficiaryAccountNum)
+    console.log(this.senderAccountNum)
+    this.validate()
+    if(this.beneficiaryAccountNum == this.senderAccountNum){
+      this.msg = "Cannot transfer to same account";
+      this.customer = undefined
+    }
+    else{
+      this.customerService.getCustomerDetailsByAccountNo(this.beneficiaryAccountNum)
     .subscribe({
       next:(data)=>{
         this.customer = data; 
+        this.msg = undefined
       },
       error: ()=>{}
     })
+    }
+     
+    
+      
+  }
+
+
+  transfer(){
+      console.log('in transfer...')
+  }
+
+  validate(){
+    console.log('validate called...')
+    console.log(this.senderAccountNum)
+    console.log(this.beneficiaryAccountNum)
+    console.log(this.amount)
+
+      if(this.senderAccountNum != undefined 
+              && this.beneficiaryAccountNum != undefined 
+                  && this.amount != undefined){
+                    console.log('check 1 done... ')
+                        if(this.senderAccountNum !== this.beneficiaryAccountNum) {
+                              console.log('check 2 done... ')
+                                let acct = this.myAccounts.find(a=>a.accountNum == this.senderAccountNum)
+                                console.log("account info: " + acct)
+                                if(acct != undefined && acct.balance > this.amount){
+                                    console.log('check 3 done... ')
+                                    this.isEnabled = true; 
+                                }
+                        } 
+                        else{
+                          this.isEnabled = false;
+                        }        
+      }
+      else{
+        this.isEnabled = false;
+      }
+     
   }
 }

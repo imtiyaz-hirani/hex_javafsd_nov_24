@@ -17,6 +17,7 @@ export class TransferComponent {
   msg:string | undefined; 
   isEnabled: boolean = false; 
   amount: any;
+  transferDate: any; 
 
   constructor(private customerService: CustomerService){
     this.customerService.getAllAccounts(localStorage.getItem('username'))
@@ -67,7 +68,25 @@ export class TransferComponent {
 
 
   transfer(){
-      console.log('in transfer...')
+      //console.log('in transfer...');
+      let obj ={
+        amount : this.amount,
+        dateOfTransfer : this.transferDate,
+        modeOfTransfer :'NEFT',
+        senderAccountnumber:this.senderAccountNum,
+        beneficiaryAccountNumber :this.beneficiaryAccountNum
+      }
+      this.customerService.postTransaction(obj).subscribe({
+        next:(data)=>{
+          this.msg = 'Transfer Successful';
+          this.beneficiaryAccountNum= undefined
+          this.senderAccountNum = undefined
+          this.amount = undefined 
+          this.customer = undefined
+          this.isEnabled = false
+        },
+        error:()=>{}
+      })
   }
 
   validate(){
@@ -87,6 +106,9 @@ export class TransferComponent {
                                 if(acct != undefined && acct.balance > this.amount){
                                     console.log('check 3 done... ')
                                     this.isEnabled = true; 
+                                }
+                                else{
+                                  this.isEnabled = false;
                                 }
                         } 
                         else{

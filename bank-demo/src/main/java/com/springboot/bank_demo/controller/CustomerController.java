@@ -1,7 +1,6 @@
 package com.springboot.bank_demo.controller;
 
 import java.time.LocalDate;
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.bank_demo.dto.TransactionDto;
 import com.springboot.bank_demo.exception.ResourceNotFoundException;
 import com.springboot.bank_demo.model.Account;
 import com.springboot.bank_demo.model.Customer;
+import com.springboot.bank_demo.model.Transaction;
 import com.springboot.bank_demo.model.User;
 import com.springboot.bank_demo.service.CustomerService;
 
@@ -70,5 +71,11 @@ public class CustomerController {
 	@GetMapping("/api/customer/account")
 	public Customer getCustomerNameByAccountNumber(@RequestParam String accountNumber) {
 		return customerService.getCustomerNameByAccountNumber(accountNumber);
+	}
+	
+	@PostMapping("/api/transaction/add")
+	public Transaction postTransaction(@RequestBody TransactionDto dto) {
+		System.out.println(dto);
+		return customerService.postTransaction(dto);
 	}
 }

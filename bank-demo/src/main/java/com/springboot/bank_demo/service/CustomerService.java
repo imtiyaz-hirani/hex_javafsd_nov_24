@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.springboot.bank_demo.dto.TransactionDto;
 import com.springboot.bank_demo.exception.ResourceNotFoundException;
 import com.springboot.bank_demo.model.Account;
 import com.springboot.bank_demo.model.Customer;
+import com.springboot.bank_demo.model.Transaction;
 import com.springboot.bank_demo.model.User;
 import com.springboot.bank_demo.repository.AccountRepository;
 import com.springboot.bank_demo.repository.CustomerRepository;
+import com.springboot.bank_demo.repository.TransactionRepository;
 import com.springboot.bank_demo.repository.UserRepository;
 
 @Service
@@ -26,6 +29,8 @@ public class CustomerService {
 	private CustomerRepository customerRepository;
 	@Autowired
 	private AccountRepository accountRepository;
+	@Autowired
+	private TransactionRepository transactionRepository;
 	
 	public User insertUser(User user) {
 		user.setRole("CUSTOMER");
@@ -61,6 +66,29 @@ public class CustomerService {
 	public Customer getCustomerNameByAccountNumber(String accountNumber) {
 		 
 		return customerRepository.getCustomerNameByAccountNumber(accountNumber);
+	}
+
+	public Transaction postTransaction(TransactionDto dto) {
+		Account senderAccount =  accountRepository
+					.findByAccountNum(dto.getSenderAccountnumber()).get();
+		Account beneficiaryAccount = accountRepository
+					.findByAccountNum(dto.getBeneficiaryAccountNumber()).get();
+		
+		//update sender account 
+		senderAccount.setBalance(senderAccount.getBalance() - dto.getAmount());
+		senderAccount = accountRepository.save(senderAccount);
+		//update beneficiary account 
+		beneficiaryAccount.setBalance(beneficiaryAccount.getBalance() + dto.getAmount());
+		beneficiaryAccount = accountRepository.save(beneficiaryAccount);
+		
+		Transaction transaction = new Transaction();
+		transaction.setSenderAccount(senderAccount);
+		transaction.setBeneficiaryAccount(beneficiaryAccount);
+		transaction.setDateOfTransfer(dto.getDateOfTransfer());
+		transaction.setAmount(dto.getAmount());
+		transaction.setModeOfTransfer(dto.getModeOfTransfer());
+		
+		return transactionRepository.save(transaction);
 	}
 
 }

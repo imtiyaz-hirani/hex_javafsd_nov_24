@@ -18,14 +18,14 @@ public class Account { //Account is dependent on customer -- a
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	private String accountNum;
+	private String accountNum; //Account senderAccount =  findByAccountNum(accountNum)
 	@Enumerated(EnumType.STRING)
-	private AccountType accountType;
-	private LocalDate dateOfCreation;
-	private double balance;
+	private AccountType accountType;//List<Account> listAccounts = findByAccountType(accountType)
+	private LocalDate dateOfCreation;//List<Account> listAccounts =  findByDateOfCreation(dateOfCreation)
+	private double balance; //List<Account> listAccounts = findByBalance(balance)
 	private double transferLimit;
 	@ManyToOne
-	private Customer customer;
+	private Customer customer; //findByCustomerName
 
 	public int getId() {
 		return id;

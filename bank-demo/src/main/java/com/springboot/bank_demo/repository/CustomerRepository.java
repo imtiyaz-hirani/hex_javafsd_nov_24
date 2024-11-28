@@ -21,6 +21,11 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 			+ " where a.accountNum=?1")
 	Customer getCustomerNameByAccountNumber(String accountNumber);
 
+	@Query("select c from Customer c "
+			+ " join c.user u "
+			+ " where u.username=?1")
+	Customer getCustomerDetailsByUsername(String username);
+
 }
 /*
  * Account (P)
@@ -28,4 +33,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer>{
  * 
  * Customer (C) --name
  * Account (A)
+ * 
+ * 
+ * Customer (P)
+ * User (C) - username
  */

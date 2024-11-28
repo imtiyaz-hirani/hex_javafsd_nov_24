@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -18,6 +19,9 @@ public class Customer { //customer is dependent on user -- c
 	@OneToOne
 	private User user;
 
+	@ManyToOne
+	private Address address; 
+	
 	public int getId() {
 		return id;
 	}
@@ -50,4 +54,13 @@ public class Customer { //customer is dependent on user -- c
 		this.user = user;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	
 }

@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import com.springboot.bank_demo.dto.TransactionDto;
 import com.springboot.bank_demo.exception.ResourceNotFoundException;
 import com.springboot.bank_demo.model.Account;
+import com.springboot.bank_demo.model.Address;
 import com.springboot.bank_demo.model.Customer;
 import com.springboot.bank_demo.model.Transaction;
 import com.springboot.bank_demo.model.User;
 import com.springboot.bank_demo.repository.AccountRepository;
+import com.springboot.bank_demo.repository.AddressRepository;
 import com.springboot.bank_demo.repository.CustomerRepository;
 import com.springboot.bank_demo.repository.TransactionRepository;
 import com.springboot.bank_demo.repository.UserRepository;
@@ -31,6 +33,8 @@ public class CustomerService {
 	private AccountRepository accountRepository;
 	@Autowired
 	private TransactionRepository transactionRepository;
+	@Autowired
+	private AddressRepository addressRepository;
 	
 	public User insertUser(User user) {
 		user.setRole("CUSTOMER");
@@ -89,6 +93,17 @@ public class CustomerService {
 		transaction.setModeOfTransfer(dto.getModeOfTransfer());
 		
 		return transactionRepository.save(transaction);
+	}
+
+	public Customer getCustomerDetailsByUsername(String username) {
+		 
+		return customerRepository.getCustomerDetailsByUsername(username);
+	}
+
+	public Customer insert(Customer customer) {
+		Address address = addressRepository.save(customer.getAddress());
+		customer.setAddress(address);
+		return customerRepository.save(customer);
 	}
 
 }

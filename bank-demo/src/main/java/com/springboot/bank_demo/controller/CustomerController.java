@@ -78,4 +78,20 @@ public class CustomerController {
 		System.out.println(dto);
 		return customerService.postTransaction(dto);
 	}
+	
+	@GetMapping("/api/customer/details")
+	public Customer getCustomerDetailsByUsername(@RequestParam String username) {
+		return customerService.getCustomerDetailsByUsername(username);
+	}
+	
+	@PostMapping("/api/customer/update")
+	public Customer postCustomer(@RequestBody Customer customer) {
+		return customerService.insert(customer);
+	}
 }
+
+
+
+
+
+

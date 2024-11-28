@@ -1,56 +1,56 @@
+<form [formGroup]="profileForm" (ngSubmit)="saveProfile()">
 <div class="card">
   <div class="card-header">
     My Profile
   </div>
   <div class="card-body">
-    <form class="row g-3">
+    <div class="alert alert-primary" *ngIf="msg"
+    >
+        {{msg}}
+    </div>
+   <div class="row g-3" >
       <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputEmail4">
+        <label for="inputEmail4" class="form-label">Name:</label>
+        <input type="text" class="form-control" formControlName="name">
       </div>
       <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">Password</label>
-        <input type="password" class="form-control" id="inputPassword4">
+        <label for="inputPassword4" class="form-label">Contact:</label>
+        <input type="text" class="form-control" formControlName="contact">
       </div>
       <div class="col-12">
-        <label for="inputAddress" class="form-label">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+        <label for="inputAddress" class="form-label">Address:</label>
+        <input type="text" class="form-control" formControlName="addressLine1" placeholder="1234 Main St">
       </div>
       <div class="col-12">
-        <label for="inputAddress2" class="form-label">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+        <label for="inputAddress2" class="form-label">Address 2:</label>
+        <input type="text" class="form-control" formControlName="addressLine2" placeholder="Apartment, studio, or floor">
       </div>
       <div class="col-md-6">
         <label for="inputCity" class="form-label">City</label>
-        <input type="text" class="form-control" id="inputCity">
+        <input type="text" class="form-control" formControlName="city">
       </div>
       <div class="col-md-4">
         <label for="inputState" class="form-label">State</label>
-        <select id="inputState" class="form-select">
-          <option selected>Choose...</option>
-          <option>...</option>
+        <select id="inputState" class="form-select" formControlName="state">
+          <option value="MS">MS</option>
+          <option value="TN">TN</option>
+          <option value="HP">HP</option>
         </select>
       </div>
       <div class="col-md-2">
         <label for="inputZip" class="form-label">Zip</label>
-        <input type="text" class="form-control" id="inputZip">
+        <input type="text" class="form-control" formControlName="zip">
       </div>
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck">
-          <label class="form-check-label" for="gridCheck">
-            Check me out
-          </label>
-        </div>
-      </div>
-      
-    </form>
+       
+    </div>
+   
   </div>
   <div class="card-footer"> 
      
-      <button type="submit" class="btn btn-primary">Save Profile</button>
+      <input type="submit" class="btn btn-primary" [disabled]="!profileForm.valid" value="Save Profile ">
  
   </div>
-</div>
 
+</div>
+</form>
 

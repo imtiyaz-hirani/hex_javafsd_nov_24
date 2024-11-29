@@ -1,5 +1,7 @@
 package com.springboot.bank_demo;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,6 +18,12 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<?> handleResourceNotFoundException(Exception e) {
+		dto.setMsg(e.getMessage());
+		return ResponseEntity.badRequest().body(dto);
+	}
+	
+	@ExceptionHandler(IOException.class)
+	public ResponseEntity<?> handleIOException(IOException e) {
 		dto.setMsg(e.getMessage());
 		return ResponseEntity.badRequest().body(dto);
 	}

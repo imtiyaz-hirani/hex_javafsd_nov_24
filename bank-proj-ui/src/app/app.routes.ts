@@ -7,10 +7,19 @@ import { StatementComponent } from './components/statement/statement.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ProductComponent } from './pages/product/product.component';
+import { ProductDashboardComponent } from './components/product-dashboard/product-dashboard.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
 
 export const routes: Routes = [
     {
         path: '', component: LoginComponent
+    },
+    {
+        path: 'product', component: ProductComponent, children:[
+            {path:'', component: ProductDashboardComponent},
+            {path:'product-details/:id', component: ProductDetailsComponent}
+        ]
     },
     {
         path: 'dashboard' , component: DashboardComponent, children:[

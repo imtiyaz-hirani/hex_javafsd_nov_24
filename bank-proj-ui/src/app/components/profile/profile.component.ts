@@ -13,7 +13,7 @@ export class ProfileComponent implements OnInit{
   profileForm: FormGroup;
   customer: any; 
   msg: any| undefined; 
-
+  customerCopy: any;
   constructor(private customerService: CustomerService){ 
     this.profileForm = new FormGroup({
       name: new FormControl('' ,[Validators.required]),
@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit{
     .subscribe({
       next:(data)=>{
         this.customer = data; 
+        this.customerCopy = data; 
         this.profileForm = new FormGroup({
           name: new FormControl(this.customer.name ,[Validators.required]),
           contact: new FormControl(this.customer.contact,[Validators.required]),
@@ -56,6 +57,9 @@ export class ProfileComponent implements OnInit{
     this.customer.address.state = this.profileForm.value.state;
     this.customer.address.zip = this.profileForm.value.zip;
     console.log(this.customer);
+    console.log(this.customerCopy);
+    //logic for checking if there is any update to be done.. 
+    
     this.customerService.updateProfile(this.customer).subscribe({
       next:(data)=>{
         this.customer = data; 

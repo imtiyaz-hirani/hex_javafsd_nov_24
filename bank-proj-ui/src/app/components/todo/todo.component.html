@@ -1,0 +1,45 @@
+<div>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">City</th>
+            <th scope="col">Website</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of data; let i = index">
+            <th scope="row">{{i+1 +(page*size)}}</th>
+            <td>{{d.name}}</td>
+            <td>{{d.email}}</td>
+            <td>{{d.address.city}}</td>
+            <td>{{d.website}}</td>
+            <td>{{d.company.name}}</td>
+            <td> --- </td>
+          </tr>
+          
+        </tbody>
+      </table>
+</div>
+
+<div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <button class="page-link" (click)="prev()"  tabindex="-1" aria-disabled="true">Previous</button>
+          </li>
+          <li class="page-item" *ngFor="let i of pageArray">
+                <button class="page-link" (click)="onClick(i-1)" >{{i}}</button>
+            </li>
+           
+          <li class="page-item">
+            <button class="page-link"  (click)="next()">Next</button>
+          </li>
+        </ul>
+      </nav>
+</div>
+

@@ -10,6 +10,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { ProductComponent } from './pages/product/product.component';
 import { ProductDashboardComponent } from './components/product-dashboard/product-dashboard.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { TodoComponent } from './components/todo/todo.component';
 
 export const routes: Routes = [
     {
@@ -37,6 +38,9 @@ export const routes: Routes = [
             },
             {
                 path: 'statement', component: StatementComponent
+            },
+            {
+                path: 'todos', component: TodoComponent
             },
             {
                 path: '**', component: PageNotFoundComponent

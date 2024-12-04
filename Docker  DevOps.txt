@@ -1,0 +1,141 @@
+Docker : DevOps
+
+UI     --------   Backend 
+dev		    dev 
+
+- set up your system for spring boot : NO 
+- setup ur system for angular/react: NO 
+
+					   CI/CD
+Local system ===> push the code in git   =========>  it goes to the server  
+
+
+Servers go on the Cloud 
+
+IT Team: installations and maintenance of servers 
+
+Container :- wrap ur app in a container 
+
+Dev: How???? 
+
+Steps
+-----
+-- install setup docker 
+-- go to ur app, add a file dockerFile and add docker commands in it. 
+-- using docker commands create an image of your app and wrap it inside a container 
+
+dockerhub
+---------
+-- push the image/container to dockerhub 
+
+IT Team
+-------
+- take docker file and give it to server 
+
+
+
+- you shd be able to create a docker file of your spring boot app and push it to docker hub 
+
+
+
+Implementation
+==============
+
+Installation Link: https://docs.docker.com/desktop/setup/install/windows-install/
+
+- create an account in dockerhub.com and login from cli 
+
+C:\Users> docker login
+Authenticating with existing credentials...
+Login Succeeded
+
+<Enter your username/password> used for signing up on docker hub
+
+Example 1: Use Linux on windows
+
+
+CMD:  docker pull alpine
+
+Using default tag: latest
+latest: Pulling from library/alpine
+da9db072f522: Download complete
+Digest: sha256:1e42bbe2508154c9126d48c2b8a75420c3544343bf86fd041fb7527e017a4b4a
+Status: Downloaded newer image for alpine:latest
+docker.io/library/alpine:latest
+
+
+C:\Users>docker images
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+alpine       latest    1e42bbe25081   2 months ago   12.1MB
+
+creating a container for executin this alpine image
+
+
+C:\Users>docker container create -i -t --name apline-container alpine
+e6d0008d02e95610c8649d7c804e2885ec072192adcdc9726f78947cd7609bc2
+
+to check if the container is running, 
+
+C:\Users>docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+We can check from GUI of docker desktop if container is created
+
+
+Start the container from docker desktop GUI and check again, 
+C:\Users>docker ps
+CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS          PORTS     NAMES
+e6d0008d02e9   alpine    "/bin/sh"   3 minutes ago   Up 10 seconds             apline-container
+
+so container with ID: e6d0008d02e9 is running..... 
+
+
+Task 2:- Create a docker image of spring boot app. 
+
+Step 0: create a sprint boot app(add only spring-web dependency) and create a basic api for testing
+
+@RestController
+public class DockerController {
+
+	@GetMapping("/api/docker/hello")
+	public String helloDocker() {
+		return "Running in Docker!!";
+	}
+}
+
+
+
+Step 1: build your app and create a jar file in target folder. 
+
+Step 2: create Dockerfile in root location of your application. 
+
+FROM openjdk:17-oracle
+EXPOSE 8080
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} DockerApp-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java","-jar","/DockerApp-0.0.1-SNAPSHOT.jar"]
+
+replace this DockerApp-0.0.1-SNAPSHOT.jar with your jar file name.. 
+
+-- Go to project folder and build the image 
+
+D:\hex_javafsd_nov_24\demo>docker build -t backend-image-springboot-app .
+
+-- finally run this image, 
+
+D:\hex_javafsd_nov_24\demo>docker run -p 9090:8080 backend-image-springboot-app
+
+NOTE: Docker will create a container for you, so don't bother creating it manually. 
+
+-- TEST your api 
+
+
+
+
+
+
+
+
+
+
+

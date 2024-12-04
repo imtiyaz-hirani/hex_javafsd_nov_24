@@ -103,8 +103,6 @@ public class DockerController {
 	}
 }
 
-
-
 Step 1: build your app and create a jar file in target folder. 
 
 Step 2: create Dockerfile in root location of your application. 
@@ -128,6 +126,37 @@ D:\hex_javafsd_nov_24\demo>docker run -p 9090:8080 backend-image-springboot-app
 NOTE: Docker will create a container for you, so don't bother creating it manually. 
 
 -- TEST your api 
+
+
+PUSH on dockerhub.com
+
+C:\Users>docker login
+
+C:\Users>docker images
+REPOSITORY                                   TAG       IMAGE ID       CREATED          SIZE
+imtiyazhirani/backend-image-springboot-app   latest    4bbbdd001fee   47 minutes ago   765MB
+
+-- ADD tag so that the push happens in your user repo and not global repo 
+
+docker tag backend-image-springboot-app  imtiyazhirani/backend-image-springboot-app
+
+-- push the image 
+
+C:\Users>docker push imtiyazhirani/backend-image-springboot-app
+Using default tag: latest
+The push refers to repository [docker.io/imtiyazhirani/backend-image-springboot-app]
+bce6f00adbde: Pushed
+38a980f2cc8a: Pushed
+de849f1cfbe6: Pushed
+a7203ca35e75: Pushed
+b6005510b526: Pushed
+latest: digest: sha256:4bbbdd001fee49b845304f0a40dd783a1bdb0ff40b6b02d55d9b11424437f883 size: 856
+
+AWS
+===
+-- Create Db on AWS cloud : connect spring boot app to this cloud DB : docker file of this app 
+
+account in AWS : debit card/credit card 
 
 
 

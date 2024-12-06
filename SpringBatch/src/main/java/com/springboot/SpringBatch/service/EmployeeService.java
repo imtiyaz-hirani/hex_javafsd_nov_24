@@ -95,8 +95,7 @@ public class EmployeeService {
 	}
 
 	public Page<Employee> getAllEmployee(Pageable pageable) {
-		 
-		return employeeRepository.findAll(pageable) ;
+ 		return employeeRepository.findAll(pageable) ;
 	}
 
 	public Employee validate(int id) throws ResourceNotFoundException {
@@ -109,6 +108,24 @@ public class EmployeeService {
 	public void deleteById(int id) {
 		employeeRepository.deleteById(id);
 		
+	}
+
+	public List<Employee> getEmployees() {
+		 
+		return employeeRepository.findAll();
+	}
+
+	public List<Employee> searchByName(String name) {
+		 
+		return employeeRepository.searchByName(name);
+	}
+
+	public List<Employee> searchByNameV2(String name) {
+		List<Employee> list = employeeRepository.findAll();
+		
+		return list.parallelStream()
+					.filter(e->e.getName().contains(name))
+					.toList();
 	}
 	
 	

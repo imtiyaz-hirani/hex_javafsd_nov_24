@@ -1,6 +1,7 @@
 package com.springboot.SpringBatch.controller;
 
  import java.io.IOException;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.springboot.SpringBatch.dto.ResponseMessageDto;
 import com.springboot.SpringBatch.exception.ResourceNotFoundException;
 import com.springboot.SpringBatch.model.Employee;
- import com.springboot.SpringBatch.service.EmployeeService;
+import com.springboot.SpringBatch.service.EmployeeService;
 
 @RestController
 public class EmployeeController {
@@ -60,6 +61,11 @@ public class EmployeeController {
 		return employeeService.getAllEmployee(pageable);
 	}
 	
+	@GetMapping("/api/employee/all/v2")
+	public  List<Employee> getEmployees(){
+		return employeeService.getEmployees();
+	}
+	
 	@DeleteMapping("/api/employee/delete/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable int id, 
 			ResponseMessageDto dto) 
@@ -72,4 +78,13 @@ public class EmployeeController {
 		return ResponseEntity.ok(dto);
 	}
 	
+	@GetMapping("/api/employee/search")
+	public List<Employee> searchByName(@RequestParam String name) {
+		return employeeService.searchByName(name);
+	}
+	
+	@GetMapping("/api/employee/search/v2")
+	public List<Employee> searchByNameV2(@RequestParam String name) {
+		return employeeService.searchByNameV2(name);
+	}
 }
